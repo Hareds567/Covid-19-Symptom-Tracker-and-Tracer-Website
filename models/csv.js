@@ -39,4 +39,4 @@ var csvSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('DataDump',csvSchema);
+module.exports = mongoose.model('import-test',csvSchema);
