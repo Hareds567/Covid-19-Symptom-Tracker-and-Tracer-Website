@@ -55,23 +55,11 @@ app.get('/',(req,res)=>{
 var temp ;
 
 app.post('/',uploads.single('csv'),(req,res)=>{
- //convert csvfile to jsonArray   
+
 csv()
-.fromFile(req.file.path)
+.fromFile(req.file.path)      
 .then((jsonObj)=>{
     console.log(jsonObj);
-  /*  for(var x=0;x<jsonObj;x++){
-         temp = parseFloat(jsonObj[x].Test1)
-         jsonObj[x].Test1 = temp;
-         temp = parseFloat(jsonObj[x].Test2)
-         jsonObj[x].Test2 = temp;
-         temp = parseFloat(jsonObj[x].Test3)
-         jsonObj[x].Test3 = temp;
-         temp = parseFloat(jsonObj[x].Test4)
-         jsonObj[x].Test4 = temp;
-         temp = parseFloat(jsonObj[x].Final)
-         jsonObj[x].Final = temp;
-     }*/
      csvModel.insertMany(jsonObj,(err,data)=>{
             if(err){
                 console.log(err);
