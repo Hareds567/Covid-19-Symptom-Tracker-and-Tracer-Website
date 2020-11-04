@@ -18,9 +18,7 @@ var storage = multer.diskStorage({
 var uploads = multer({storage:storage});
 
 //connect to db
-const uri = "mongodb+srv://Hareds:Yoquieroserel19.cluster0.lxrx6.mongodb.net/Test.DataDump?retryWrites=true&w=majority"
 var url =   'mongodb+srv://Admin:admin@cluster0.zoibg.mongodb.net/COVID-App?retryWrites=true&w=majority'
-var url2 ='mongodb://localhost:27017/csvdemos'
 mongoose.connect(url,{useNewUrlParser:true})
 .then(()=>console.log('connected to db'))
 .catch((err)=>console.log(err))
