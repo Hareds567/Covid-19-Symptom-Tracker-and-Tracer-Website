@@ -1,36 +1,36 @@
 var mongoose  =  require('mongoose');
 
 var csvSchema = new mongoose.Schema({
-    ID:{
+    id_number:{
         type:String
     },
-    FirstName:{
+    first_name:{
         type:String
     },
-    LastName:{
+    last_name:{
         type:String
     },
-    MiddleName:{
+    middle_name:{
         type:String
     },
-    MajorCode:{
+    major_code:{
         type:String
     },
-    MajorName:{
+    major_name:{
         type:String
     },
-    CourseID:{
+    course_id:{
         type:String
     },
-    OswegoEmail:{
+    student_email:{
         type:String
     },
-    Year:{
+    student_year:{
         type:String
     },
-    Address:{
+    student_address:{
         type:String
-    },
+    }
 });
 
 module.exports = mongoose.model('importTest',csvSchema);
