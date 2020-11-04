@@ -1,34 +1,34 @@
 var mongoose  =  require('mongoose');
 
 var csvSchema = new mongoose.Schema({
-    id_number:{
+    StudentId:{
         type:String
     },
-    first_name:{
+    FirstName:{
         type:String
     },
-    last_name:{
+    LastName:{
         type:String
     },
-    middle_name:{
+    MiddleName:{
         type:String
     },
-    major_code:{
+    MajorCode:{
         type:String
     },
-    major_name:{
+    MajorName:{
         type:String
     },
-    course_id:{
+    CourseId:{
         type:String
     },
-    student_email:{
+    StudentEmail:{
         type:String
     },
-    student_year:{
+    StudentYear:{
         type:String
     },
-    student_address:{
+    StudentAddress:{
         type:String
     }
 });
