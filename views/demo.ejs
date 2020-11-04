@@ -22,42 +22,6 @@
                 </div>
           </div>
     </div><br>
-    <%if(data){%>
-    <div>
-        <table class="table table-hover table-responsive table-stripped  nav justify-content-center" style="width: auto" > 
-                <thead>
-                    <tr class="bg-primary">
-                        <th>S.no</th>
-                        <th style="padding-right: 1em">LastName</th>
-                        <th style="padding-right: 1em">FirstName</th>
-                        <th style="padding-right:2em;padding-left:2em;">SSN</th>
-                        <th>Test1</th>
-                        <th>Test2</th>
-                        <th>Test3</th>
-                        <th>Test4</th>
-                        <th>Final</th>
-                        <th>Grade</th>
-                    </tr>
-                </thead>
-                <tbody style="overflow-x: scroll; height:350px;" class="table-bordered">
-                    <%for(var i=0;i< data.length;i++){%>
-                    <tr class="text-center">
-                                  <td ><%= i+1%></td>
-                                  <td style="padding-right: 1em"><%= data[i].LastName%></td>
-                                  <td style="padding-left: 1em;"><%= data[i].FirstName%></td>
-                                  <td style="padding-right:1em;padding-left:1em;"><%= data[i].SSN%></td>
-                                  <td style="padding-left: 1em"><%= data[i].Test1%></td>
-                                  <td style="padding-left: 1em"><%= data[i].Test2%></td>
-                                  <td style="padding-left: 1em"><%= data[i].Test3%></td>
-                                  <td style="padding-left: 1.2em"><%= data[i].Test4%></td>
-                                  <td style="padding-left: 1.2em"><%= data[i].Final%></td>
-                                  <td style="padding-left: 1.2em"><%= data[i].Grade%></td>
-                    </tr>
-                    <%}%>
-                </tbody>
-        </table>
-    </div>
-    <%}%>
 <br>
 </body>
 </html>
