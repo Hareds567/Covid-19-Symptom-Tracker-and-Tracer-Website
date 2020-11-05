@@ -56,20 +56,20 @@ app.get('/',(req,res)=>{
 });
 
 // csv upload
-// app.post('/',uploads.single('csv'),(req,res)=>{
-// csv()
-// .fromFile(req.file.path)      
-// .then((jsonObj)=>{
-//     console.log(jsonObj);
-//      csvModel.insertMany(jsonObj,(err,data)=>{
-//             if(err){
-//                 console.log(err);
-//             }else{
-//                 res.redirect('/');
-//             }
-//      });
-//    });
-// });
+app.post('/',uploads.single('csv'),(req,res)=>{
+csv()
+.fromFile(req.file.path)      
+.then((jsonObj)=>{
+    console.log(jsonObj);
+     csvModel.insertMany(jsonObj,(err,data)=>{
+            if(err){
+                console.log(err);
+            }else{
+                res.redirect('/');
+            }
+     });
+   });
+});
  
 app.post('/postdata',(req,res)=> {
     var data = req.body.data;
@@ -99,5 +99,5 @@ app.post('/postdata',(req,res)=> {
 //     console.log(JSON.stringify(data))
 // })
 //assign port
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 3000;
 app.listen(port,()=>console.log('server run at port '+ port));
