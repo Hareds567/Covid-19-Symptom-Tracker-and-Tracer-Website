@@ -18,12 +18,14 @@ var storage = multer.diskStorage({
 var uploads = multer({storage:storage});
 
 //connect to db
-const uri = "mongodb+srv://Hareds:Yoquieroserel19.cluster0.lxrx6.mongodb.net/Test.DataDump?retryWrites=true&w=majority"
 var url =   'mongodb+srv://Admin:admin@cluster0.zoibg.mongodb.net/COVID-App?retryWrites=true&w=majority'
-var url2 ='mongodb://localhost:27017/csvdemos'
+
 mongoose.connect(url,{useNewUrlParser:true})
 .then(()=>console.log('connected to db'))
 .catch((err)=>console.log(err))
+
+var db = mongoose.connection;
+
 
 //init app
 var app = express();
@@ -39,6 +41,7 @@ app.use(express.static(path.resolve(__dirname,'public')));
 
 //default pageload
 app.get('/',(req,res)=>{
+    
     csvModel.find((err,data)=>{
          if(err){
              console.log(err);
@@ -52,10 +55,8 @@ app.get('/',(req,res)=>{
     });
 });
 
-var temp ;
 
 app.post('/',uploads.single('csv'),(req,res)=>{
-
 csv()
 .fromFile(req.file.path)      
 .then((jsonObj)=>{
@@ -70,6 +71,26 @@ csv()
    });
 });
 
+//Just Playing with different queries
+var query = csvModel.find({'MajorName': 'Computer Science BA'})
+query.select('StudentEmail')
+query.exec(function(err,list){
+    console.log(list.MajorName, list.StudentEmail)
+    if (err) return handleError(err)
+
+   
+})
+
+var query2 = csvModel.find({}) //gets all 
+query2.exec(function(err,results){
+   // console.log(JSON.stringify(results))
+    if (err) return handleError(err)
+})
+
+var query3 = csvModel.find({'MajorName': 'Computer Science BA'}).select('StudentEmail')
+query3.exec(function(err,data){
+    console.log(JSON.stringify(data))
+})
 //assign port
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 3001;
 app.listen(port,()=>console.log('server run at port '+port));
