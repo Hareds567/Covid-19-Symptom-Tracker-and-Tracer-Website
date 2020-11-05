@@ -19,9 +19,13 @@ var uploads = multer({storage:storage});
 
 //connect to db
 var url =   'mongodb+srv://Admin:admin@cluster0.zoibg.mongodb.net/COVID-App?retryWrites=true&w=majority'
+
 mongoose.connect(url,{useNewUrlParser:true})
 .then(()=>console.log('connected to db'))
 .catch((err)=>console.log(err))
+
+var db = mongoose.connection;
+
 
 //init app
 var app = express();
@@ -37,6 +41,7 @@ app.use(express.static(path.resolve(__dirname,'public')));
 
 //default pageload
 app.get('/',(req,res)=>{
+    
     csvModel.find((err,data)=>{
          if(err){
              console.log(err);
@@ -50,24 +55,49 @@ app.get('/',(req,res)=>{
     });
 });
 
-var temp ;
-
-app.post('/',uploads.single('csv'),(req,res)=>{
-
-csv()
-.fromFile(req.file.path)      
-.then((jsonObj)=>{
-    console.log(jsonObj);
-     csvModel.insertMany(jsonObj,(err,data)=>{
-            if(err){
-                console.log(err);
-            }else{
-                res.redirect('/');
-            }
-     });
-   });
+// csv upload
+// app.post('/',uploads.single('csv'),(req,res)=>{
+// csv()
+// .fromFile(req.file.path)      
+// .then((jsonObj)=>{
+//     console.log(jsonObj);
+//      csvModel.insertMany(jsonObj,(err,data)=>{
+//             if(err){
+//                 console.log(err);
+//             }else{
+//                 res.redirect('/');
+//             }
+//      });
+//    });
+// });
+ 
+app.post('/postdata',(req,res)=> {
+    var data = req.body.data;
+    res.status(200).json({
+        message: "Data recieved suscessfully"
+    });
 });
 
+//Just Playing with different queries
+// var query = csvModel.find({'MajorName': 'Computer Science BA'})
+// query.select('StudentEmail')
+// query.exec(function(err,list){
+//     console.log(list.MajorName, list.StudentEmail)
+//     if (err) return handleError(err)
+
+   
+// })
+
+// var query2 = csvModel.find({}) //gets all 
+// query2.exec(function(err,results){
+//     console.log(JSON.stringify(results))
+//     if (err) return handleError(err)
+// })
+
+// var query3 = csvModel.find({'MajorName': 'Computer Science BA'}).select('StudentEmail')
+// query3.exec(function(err,data){
+//     console.log(JSON.stringify(data))
+// })
 //assign port
-var port = process.env.PORT || 3000;
-app.listen(port,()=>console.log('server run at port '+port));
+var port = process.env.PORT || 3001;
+app.listen(port,()=>console.log('server run at port '+ port));
