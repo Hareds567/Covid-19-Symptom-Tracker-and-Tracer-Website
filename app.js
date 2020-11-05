@@ -83,7 +83,7 @@ query.exec(function(err,list){
 
 var query2 = csvModel.find({}) //gets all 
 query2.exec(function(err,results){
-   // console.log(JSON.stringify(results))
+    console.log(JSON.stringify(results))
     if (err) return handleError(err)
 })
 
@@ -93,4 +93,4 @@ query3.exec(function(err,data){
 })
 //assign port
 var port = process.env.PORT || 3001;
-app.listen(port,()=>console.log('server run at port '+port));
+app.listen(port,()=>console.log('server run at port '+ port));
