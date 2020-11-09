@@ -87,6 +87,27 @@ app.post('/posttest',(req,res)=> {
     res.status(200).send(data);
 });
 
+// TESTING: get request, used for pinging
+app.get('/gettest',(req,res)=> {
+    res.send('Get request sucessful.')
+});
+
+// ==============================================
+// GET: Social circle
+// ==============================================
+const router = express.Router();
+app.use("/", router);
+router.route("/get_social_circle").get(function(req, res) {
+    socialCircle.findOne({}, function(err, result) {
+      if (err) {
+        console.log("get_social_circle: no social circle found");
+        res.send(err);
+      } else {
+        console.log("get_social_circle: sending social circle");
+        res.send(result);
+      }
+    });
+  });
 
 // ==============================================
 // POST: Social circle
