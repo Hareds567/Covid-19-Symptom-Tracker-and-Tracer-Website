@@ -1,34 +1,34 @@
 var mongoose  =  require('mongoose');
 
 var socialCircleSchema = new mongoose.Schema({
-    StudentGmail:{
+    CircleUser:{
         type:String
     },
-    First:{
+    SocialCircle1:{
         type:String
     },
-    Second:{
+    SocialCircle2:{
         type:String
     },
-    Third:{
+    SocialCircle3:{
         type:String
     },
-    Fourth:{
+    SocialCircle4:{
         type:String
     },
-    Fifth:{
+    SocialCircle5:{
         type:String
     },
-    Sixth:{
+    SocialCircle6:{
         type:String
     },
-    Seventh :{
+    SocialCircle7 :{
         type:String
     },
-    Eighth :{
+    SocialCircle8 :{
         type:String
     },
-    Ninth :{
+    SocialCircle9 :{
         type:String
     }
 });

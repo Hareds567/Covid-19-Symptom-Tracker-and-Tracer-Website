@@ -20,7 +20,7 @@ var uploads = multer({storage:storage});
 //connect to db
 var url =   'mongodb+srv://Admin:admin@cluster0.zoibg.mongodb.net/COVID-App?retryWrites=true&w=majority'
 
-mongoose.connect(url,{useNewUrlParser:true})
+mongoose.connect(url,{useNewUrlParser:false})
 .then(()=>console.log('connected to db'))
 .catch((err)=>console.log(err))
 
@@ -32,12 +32,13 @@ var app = express();
 app.set('view engine','ejs');
 
 //fetch data from the request
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true})); // fixed a bug
+app.use(bodyParser.json());
 
 //static folder
 app.use(express.static(path.resolve(__dirname,'public')));
 
-//default pageload
+// webpage stuff
 app.get('/',(req,res)=>{
     
     csvModel.find((err,data)=>{
@@ -69,7 +70,7 @@ csv()
    });
 });
 
-// test post request, used for pinging, only test
+// TESTING: post request, used for pinging
 app.post('/postdata',(req,res)=> {
     var data = req.body.data;
     res.status(200).json({
@@ -77,22 +78,62 @@ app.post('/postdata',(req,res)=> {
     });
 });
 
+// TESTING: post request, used for printing post data
+app.post('/posttest',(req,res)=> {
+    var data = req.body;
+    console.log(data);
+    res.status(200).send(data);
+});
+
 app.post('/getSocialCircle',(req,res)=> {
-    var command = req.body
-    var query = socialCircle.findOne({StudentGmail: command})
-    query.exec(function(err,results){
-        if(results == null){
+    console.log(req.body.CircleUser)
+    // findOne will return a single document
+    var query_no_doc_yet = socialCircle.findOne({'CircleUser': req.body.CircleUser})
+    query_no_doc_yet.exec(function(err,query_results){
+        if(query_results==null){ // if no document exists
+            socialCircle.create( // make a new document
+                {
+                    "CircleUser": req.body.CircleUser,
+                    "SocialCircle1" : req.body.SocialCircle1,
+                    "SocialCircle2" : req.body.SocialCircle2,
+                    "SocialCircle3" : req.body.SocialCircle3,
+                    "SocialCircle4" : req.body.SocialCircle4,
+                    "SocialCircle5" : req.body.SocialCircle5,
+                    "SocialCircle6" : req.body.SocialCircle6,
+                    "SocialCircle7" : req.body.SocialCircle7,
+                    "SocialCircle8" : req.body.SocialCircle8,
+                    "SocialCircle9" : req.body.SocialCircle9,
+                }
+            )
             res.status(200).json({
-                message: 'Null'
+                message: "New document for social circle made"
             })
-        }else {
-            var searchForSocialCircle = socialCircle.find({StudentGmail: command}).select('-StudentGmail')
-            res.status(200).json(JSON.stringify(searchForSocialCircle))
         }
-    })
-    //res.status(200).json({
-    //    message: "Data recieved suscessfully"
-    //});
+        else { // document already exists, we can update existing one
+            socialCircle.updateOne({CircleUser:req.body.CircleUser},  
+                {
+                    SocialCircle1:req.body.SocialCircle1,
+                    SocialCircle2:req.body.SocialCircle2,
+                    SocialCircle3:req.body.SocialCircle3,
+                    SocialCircle4:req.body.SocialCircle4,
+                    SocialCircle5:req.body.SocialCircle5,
+                    SocialCircle6:req.body.SocialCircle6,
+                    SocialCircle7:req.body.SocialCircle7,
+                    SocialCircle8:req.body.SocialCircle8,
+                    SocialCircle9:req.body.SocialCircle9,
+                }, function (err, docs) { 
+                if (err){ 
+                    console.log(err) 
+                } 
+                else{ 
+                    console.log("Social circle updated: ", docs); 
+                } 
+            }); 
+            res.status(200).json({
+                message: "Updated existing social circle doc"
+            })
+        }
+    });
 });
 
 //assign port
