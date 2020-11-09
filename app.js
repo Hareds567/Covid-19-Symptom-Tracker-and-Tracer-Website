@@ -91,9 +91,7 @@ app.post('/getSocialCircle',(req,res)=> {
             })
         }else {
             var searchForSocialCircle = socialCircle.find({StudentGmail: command}).select('-StudentGmail')
-            res.status(200).json({
-                message: JSON.stringify(searchForSocialCircle)
-            })
+            res.status(200).json(JSON.stringify(searchForSocialCircle))
         }
     })
     //res.status(200).json({
@@ -122,24 +120,24 @@ app.post('/postdata',(req,res)=> {
 var query2 = csvModel.find({}).select('StudentEmail') //gets all 
 query2.exec(function(err,results){
    // results.StudentEmail
-    //console.log(JSON.stringify(results))
+    console.log(JSON.stringify(results))
 })
 
 var query3 = csvModel.find({'MajorName': 'Computer Science BA'}).select('StudentEmail FirstName')
 query3.exec(function(err,data){
-    //console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data))
 })
 
 var query4 = socialCircle.find({'StudentGmail': 'jcabrera@oswego.edu'}).select('-StudentGmail')
 query4.exec(function(err,data){
-    //console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data))
 })
 
-var query5 = socialCircle.where({'StudentGmail':'jcabrera@oswego.edu'}).update({First:'abc@oswego.edu'}) 
+var query5 = socialCircle.where({'StudentGmail':'jcabrera@oswego.edu'}).update({First:'abc'}) 
 query5.exec(function(err,data){
-
+    console.log(JSON.stringify(data))
 })   //abc@oswego.edu
 //assign port
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 3000;
 
 app.listen(port,()=>console.log('server run at port '+ port));
