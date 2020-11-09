@@ -7,10 +7,6 @@ var socialCircle = require('./models/socialcircle')
 var csv         = require('csvtojson');
 var bodyParser  = require('body-parser');
 
-
-
-
-
 var storage = multer.diskStorage({
     destination:(req,file,cb)=>{
         cb(null,'./public/uploads');
@@ -77,12 +73,12 @@ csv()
 app.post('/postdata',(req,res)=> {
     var data = req.body.data;
     res.status(200).json({
-        message: "Data recieved suscessfully"
+        message: "Data recieved sucessfully."
     });
 });
 
 app.post('/getSocialCircle',(req,res)=> {
-    var command = req.body.command
+    var command = req.body
     var query = socialCircle.findOne({StudentGmail: command})
     query.exec(function(err,results){
         if(results == null){
