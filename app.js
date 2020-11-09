@@ -85,7 +85,7 @@ app.post('/posttest',(req,res)=> {
     res.status(200).send(data);
 });
 
-app.post('/getSocialCircle',(req,res)=> {
+app.post('/post_social_circle',(req,res)=> {
     console.log(req.body.CircleUser)
     // findOne will return a single document
     var query_no_doc_yet = socialCircle.findOne({'CircleUser': req.body.CircleUser})
