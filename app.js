@@ -3,8 +3,13 @@ var mongoose    = require('mongoose');
 var multer      = require('multer');
 var path        = require('path');
 var csvModel    = require('./models/csv');
+var socialCircle = require('./models/socialcircle')
 var csv         = require('csvtojson');
 var bodyParser  = require('body-parser');
+
+
+
+
 
 var storage = multer.diskStorage({
     destination:(req,file,cb)=>{
@@ -16,15 +21,12 @@ var storage = multer.diskStorage({
 });
 
 var uploads = multer({storage:storage});
-
 //connect to db
 var url =   'mongodb+srv://Admin:admin@cluster0.zoibg.mongodb.net/COVID-App?retryWrites=true&w=majority'
 
 mongoose.connect(url,{useNewUrlParser:true})
 .then(()=>console.log('connected to db'))
 .catch((err)=>console.log(err))
-
-var db = mongoose.connection;
 
 
 //init app
@@ -55,7 +57,7 @@ app.get('/',(req,res)=>{
     });
 });
 
-// csv upload
+// csv upload from website
 app.post('/',uploads.single('csv'),(req,res)=>{
 csv()
 .fromFile(req.file.path)      
@@ -70,7 +72,8 @@ csv()
      });
    });
 });
- 
+
+// test post request, used for pinging, only test
 app.post('/postdata',(req,res)=> {
     var data = req.body.data;
     res.status(200).json({
@@ -78,26 +81,24 @@ app.post('/postdata',(req,res)=> {
     });
 });
 
-//Just Playing with different queries
-// var query = csvModel.find({'MajorName': 'Computer Science BA'})
-// query.select('StudentEmail')
-// query.exec(function(err,list){
-//     console.log(list.MajorName, list.StudentEmail)
-//     if (err) return handleError(err)
+app.post('/getSocialCircle',(req,res)=> {
+    var command = req.body.command
+    var query = socialCircle.findOne({StudentGmail: command})
+    query.exec(function(err,results){
+        if(results == null){
+            res.status(200).json({
+                message: 'Null'
+            })
+        }else {
+            var searchForSocialCircle = socialCircle.find({StudentGmail: command}).select('-StudentGmail')
+            res.status(200).json(JSON.stringify(searchForSocialCircle))
+        }
+    })
+    //res.status(200).json({
+    //    message: "Data recieved suscessfully"
+    //});
+});
 
-   
-// })
-
-// var query2 = csvModel.find({}) //gets all 
-// query2.exec(function(err,results){
-//     console.log(JSON.stringify(results))
-//     if (err) return handleError(err)
-// })
-
-// var query3 = csvModel.find({'MajorName': 'Computer Science BA'}).select('StudentEmail')
-// query3.exec(function(err,data){
-//     console.log(JSON.stringify(data))
-// })
 //assign port
 var port = process.env.PORT || 3000;
 app.listen(port,()=>console.log('server run at port '+ port));
