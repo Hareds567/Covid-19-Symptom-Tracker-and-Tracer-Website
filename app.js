@@ -28,7 +28,6 @@ mongoose.connect(url,{useNewUrlParser:true})
 .then(()=>console.log('connected to db'))
 .catch((err)=>console.log(err))
 
-
 //init app
 var app = express();
 
@@ -86,6 +85,7 @@ app.post('/getSocialCircle',(req,res)=> {
     var query = socialCircle.findOne({StudentGmail: command})
     query.exec(function(err,results){
         if(results == null){
+            socialCircle.create({StudentGmail: command})
             res.status(200).json({
                 message: 'Null'
             })
