@@ -20,7 +20,7 @@ var csvSchema = new mongoose.Schema({
         type:String
     },
     CourseId:{
-        type:Array
+        type:String
     },
     StudentEmail:{
         type:String

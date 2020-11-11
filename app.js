@@ -57,7 +57,7 @@ app.get('/',(req,res)=>{
 // ==============================================
 app.post('/',uploads.single('csv'),(req,res)=> {
     csv().fromFile(req.file.path).then((jsonObj)=> {
-        console.log(jsonObj);
+        // does the mass insertion
         csvModel.insertMany(jsonObj,(err,data)=> {
             if(err) {
                 console.log(err);
@@ -65,7 +65,7 @@ app.post('/',uploads.single('csv'),(req,res)=> {
             else {
                 res.redirect('/');
             }
-     });
+        });
    });
 });
 
@@ -132,12 +132,12 @@ app.get('/gettest',(req,res)=> {
 const router = express.Router();
 app.use("/", router);
 router.route("/get_social_circle").get(function(req, res) {
-    socialCircle.findOne({}, function(err, result) {
+    socialCircle.findOne({'CircleUser':req.body.CircleUser}, function(err, result) {
       if (err) {
         console.log("get_social_circle: no social circle found");
         res.send(err);
       } else {
-        console.log("get_social_circle: sending social circle");
+        console.log("get_social_circle: get social circle");
         res.send(result);
       }
     });
@@ -155,15 +155,7 @@ app.post('/post_social_circle',(req,res)=> {
             socialCircle.create( // make a new document
                 {
                     "CircleUser": req.body.CircleUser,
-                    "SocialCircle1" : req.body.SocialCircle1,
-                    "SocialCircle2" : req.body.SocialCircle2,
-                    "SocialCircle3" : req.body.SocialCircle3,
-                    "SocialCircle4" : req.body.SocialCircle4,
-                    "SocialCircle5" : req.body.SocialCircle5,
-                    "SocialCircle6" : req.body.SocialCircle6,
-                    "SocialCircle7" : req.body.SocialCircle7,
-                    "SocialCircle8" : req.body.SocialCircle8,
-                    "SocialCircle9" : req.body.SocialCircle9,
+                    "SocialCircle" : req.body.SocialCircle
                 }
             )
             res.status(200).json({
@@ -173,21 +165,15 @@ app.post('/post_social_circle',(req,res)=> {
         else { // document already exists, we can update existing one
             socialCircle.updateOne({CircleUser:req.body.CircleUser},  
                 {
-                    SocialCircle1:req.body.SocialCircle1,
-                    SocialCircle2:req.body.SocialCircle2,
-                    SocialCircle3:req.body.SocialCircle3,
-                    SocialCircle4:req.body.SocialCircle4,
-                    SocialCircle5:req.body.SocialCircle5,
-                    SocialCircle6:req.body.SocialCircle6,
-                    SocialCircle7:req.body.SocialCircle7,
-                    SocialCircle8:req.body.SocialCircle8,
-                    SocialCircle9:req.body.SocialCircle9,
+                    SocialCircle: req.body.SocialCircle,
                 }, function (err, docs) { 
                 if (err){ 
                     console.log(err) 
                 } 
                 else{ 
-                    console.log("Social circle updated: ", docs); 
+                    console.log("Social circle updated: "); 
+                    // use the below, with docs, if u wanna debug
+                    //console.log("Social circle updated: ", docs); 
                 } 
             }); 
             res.status(200).json({
