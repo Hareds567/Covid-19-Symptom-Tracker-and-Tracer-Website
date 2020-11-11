@@ -139,7 +139,7 @@ router.route("/get_social_circle").get(function(req, res) {
             res.send(err);
         }
         else if(result == null) {
-            console.log('req.body is beloq')
+            console.log('req.body is below')
             console.log(req.body)
             console.log("Result was null, no social circle was found");
             res.send("Result was null, no social circle was found")
@@ -156,6 +156,10 @@ router.route("/get_social_circle").get(function(req, res) {
 // POST: Social circle
 // ==============================================
 app.post('/post_social_circle',(req,res)=> {
+    // DEBUGGIN
+    console.log('Justin im debugging, req.body is below')
+    console.log(req.body)
+    console.log('end debugging')
     console.log(req.body.CircleUser)
     // findOne will return a single document
     var query_no_doc_yet = socialCircle.findOne({'CircleUser': req.body.CircleUser})
