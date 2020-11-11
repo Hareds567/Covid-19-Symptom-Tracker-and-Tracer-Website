@@ -132,15 +132,18 @@ app.get('/gettest',(req,res)=> {
 const router = express.Router();
 app.use("/", router);
 router.route("/get_social_circle").get(function(req, res) {
-    socialCircle.findOne({'CircleUser':req.body.CircleUser}, function(err, result) {
+    var query_getSocial =socialCircle.findOne({'CircleUser':req.body.CircleUser}).select('SocialCircle')
+    query_getSocial.exec(function(err, result) {
       if (err) {
         console.log("get_social_circle: no social circle found");
         console.log(JSON.stringify(results));
         res.send(err);
       } else {
-        console.log("get_social_circle: get social circle");
-        res.send(result);
-      }
+          if (result !=  null){
+             console.log("get_social_circle: get social circle");
+             res.send(result);
+            }
+        }
     });
   });
 
