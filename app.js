@@ -106,63 +106,57 @@ app.post('/testcsv',(req,res)=> {
     });
 })
 
-// TESTING: post request, used for pinging
-app.post('/postdata',(req,res)=> {
-    var data = req.body.data;
+// TESTING: post request, used for printing post data
+app.post('/post_test',(req,res)=> {
+    console.log('/post_test: printing req.body below')
+    console.log(req.body)
+    console.log('end /post_test')
     res.status(200).json({
-        message: "Data recieved sucessfully."
+        message: "/post_test"
     });
 });
 
-// TESTING: post request, used for printing post data
-app.post('/posttest',(req,res)=> {
-    var data = req.body;
-    console.log(data);
-    res.status(200).send(data);
-});
-
 // TESTING: get request, used for pinging
-app.get('/gettest',(req,res)=> {
-    console.log('debugging req.body is below')
+app.get('/get_test',(req,res)=> {
+    console.log('/get_test: printing req.body below')
     console.log(req.body)
-    console.log('end of req body')
-    res.send('Get request sucessful.')
+    console.log('end /get_test')
+    res.status(200).json({
+        message: "/get_test"
+    });
 });
 
-app.post('/justintest',(req,res)=> {
-    console.log('debugging req.body is below')
-    console.log(req.body)
-    console.log('end of req body')
-    res.send('Test post suceessful')
-})
-
-app.post('/pain',(req,res)=> {
-    var query_getSocial = socialCircle.findOne({CircleUser: req.body.CircleUser})
-    query_getSocial.exec(function(err,result){
-        if(err){
-            console.log("Error")
-            res.send(err);
-        }
-        else if(result == null) {
-            console.log('debugging req.body is below')
-            console.log(req.body)
-            console.log("Result was null, no social circle was found");
-            res.send("Result was null, no social circle was found")
-        }
-        else{
-            console.log("WEIRD VERSION: sending social circle");
-            console.log(JSON.stringify(result))
-            res.send(result);
-        }   
-    }); // end query
-})
+// ==============================================
+// OLD version, it never worked
+// GET: Social circle
+// ==============================================
+// const router = express.Router();
+// app.use("/", router);
+// router.route("/get_social_circle").get(function(req, res) {
+//     var query_getSocial = socialCircle.findOne({CircleUser: req.body.CircleUser})
+//     query_getSocial.exec(function(err,result){
+//         if(err){
+//             console.log("Error")
+//             res.send(err);
+//         }
+//         else if(result == null) {
+//             console.log('debugging req.body is below')
+//             console.log(req.body)
+//             console.log("Result was null, no social circle was found");
+//             res.send("Result was null, no social circle was found")
+//         }
+//         else{
+//             console.log("get_social_circle: sending social circle");
+//             console.log(JSON.stringify(result))
+//             res.send(result);
+//         }   
+//     }); // end query
+// });
 
 // ==============================================
 // GET: Social circle
 // ==============================================
-const router = express.Router();
-app.use("/", router);
-router.route("/get_social_circle").get(function(req, res) {
+app.post('/get_social_circle',(req,res)=> {
     var query_getSocial = socialCircle.findOne({CircleUser: req.body.CircleUser})
     query_getSocial.exec(function(err,result){
         if(err){
@@ -170,18 +164,16 @@ router.route("/get_social_circle").get(function(req, res) {
             res.send(err);
         }
         else if(result == null) {
-            console.log('debugging req.body is below')
-            console.log(req.body)
-            console.log("Result was null, no social circle was found");
+            console.log("/get_social_circle: error null");
             res.send("Result was null, no social circle was found")
         }
         else{
-            console.log("get_social_circle: sending social circle");
+            console.log("/get_social_circle: sucessful");
             console.log(JSON.stringify(result))
             res.send(result);
         }   
     }); // end query
-});
+})
 
 // ==============================================
 // POST: Social circle
