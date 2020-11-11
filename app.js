@@ -129,6 +129,13 @@ app.get('/gettest',(req,res)=> {
     res.send('Get request sucessful.')
 });
 
+app.post('justintest',(req,res)=> {
+    console.log('debugging req.body is below')
+    console.log(req.body)
+    console.log('end of req body')
+    res.send('Test post suceessful')
+})
+
 // ==============================================
 // GET: Social circle
 // ==============================================
