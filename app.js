@@ -123,6 +123,9 @@ app.post('/posttest',(req,res)=> {
 
 // TESTING: get request, used for pinging
 app.get('/gettest',(req,res)=> {
+    console.log('debugging req.body is below')
+    console.log(req.body)
+    console.log('end of req body')
     res.send('Get request sucessful.')
 });
 
@@ -139,7 +142,7 @@ router.route("/get_social_circle").get(function(req, res) {
             res.send(err);
         }
         else if(result == null) {
-            console.log('req.body is below')
+            console.log('debugging req.body is below')
             console.log(req.body)
             console.log("Result was null, no social circle was found");
             res.send("Result was null, no social circle was found")
