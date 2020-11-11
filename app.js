@@ -150,7 +150,7 @@ app.post('/pain',(req,res)=> {
             res.send("Result was null, no social circle was found")
         }
         else{
-            console.log("get_social_circle: sending social circle");
+            console.log("WEIRD VERSION: sending social circle");
             console.log(JSON.stringify(result))
             res.send(result);
         }   
