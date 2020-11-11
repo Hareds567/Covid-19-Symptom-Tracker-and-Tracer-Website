@@ -136,6 +136,27 @@ app.post('/justintest',(req,res)=> {
     res.send('Test post suceessful')
 })
 
+app.post('/pain',(req,res)=> {
+    var query_getSocial = socialCircle.findOne({CircleUser: req.body.CircleUser})
+    query_getSocial.exec(function(err,result){
+        if(err){
+            console.log("Error")
+            res.send(err);
+        }
+        else if(result == null) {
+            console.log('debugging req.body is below')
+            console.log(req.body)
+            console.log("Result was null, no social circle was found");
+            res.send("Result was null, no social circle was found")
+        }
+        else{
+            console.log("get_social_circle: sending social circle");
+            console.log(JSON.stringify(result))
+            res.send(result);
+        }   
+    }); // end query
+})
+
 // ==============================================
 // GET: Social circle
 // ==============================================
