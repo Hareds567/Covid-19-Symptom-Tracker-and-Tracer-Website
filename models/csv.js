@@ -33,4 +33,4 @@ var csvSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('importTest',csvSchema);
+module.exports = mongoose.model('csvdump',csvSchema);
