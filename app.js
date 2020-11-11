@@ -69,6 +69,9 @@ app.post('/',uploads.single('csv'),(req,res)=> {
    });
 });
 
+// ==============================================
+// UNFINISEHD: trying to make a better CSV uplooad post request
+// ==============================================
 app.post('/testcsv',(req,res)=> {
     var query_no_doc_yet = csvModel.findOne({'StudentEmail': req.body.StudentEmail})
     query_no_doc_yet.exec(function(err,query_results){
@@ -83,7 +86,23 @@ app.post('/testcsv',(req,res)=> {
             res.status(200).json({
                 message: "New document for csvdumps made"
             })
-        }
+        } // end if
+        else {
+            csvModel.updateOne({StudentEmail:req.body.StudentEmail},  
+                {
+                    $push: {CourseId: req.body.CourseId}
+                }, function (err, docs) { 
+                if (err){ 
+                    console.log(err) 
+                } 
+                else{ 
+                    console.log("Csvdumps updated: ", docs); 
+                } 
+            })
+            res.status(200).json({
+                message: "Updated existing csvdumps doc"
+            })
+        } // end else
     });
 })
 
