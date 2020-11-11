@@ -135,6 +135,7 @@ router.route("/get_social_circle").get(function(req, res) {
     socialCircle.findOne({'CircleUser':req.body.CircleUser}, function(err, result) {
       if (err) {
         console.log("get_social_circle: no social circle found");
+        console.log(result);
         res.send(err);
       } else {
         console.log("get_social_circle: get social circle");
