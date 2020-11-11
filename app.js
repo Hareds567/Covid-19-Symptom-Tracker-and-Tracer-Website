@@ -135,13 +135,15 @@ router.route("/get_social_circle").get(function(req, res) {
     var query_getSocial = socialCircle.findOne({'CircleUser': req.body.CircleUser})
     query_getSocial.exec(function(err,result){
         if(err){
+            console.log("Error")
             res.send(err);
         }
         else if(result == null) {
+            console.log("Result was null, no social circle was found");
             res.send("Result was null, no social circle was found")
         }
         else{
-            console.log("get_social_circle: get social circle");
+            console.log("get_social_circle: sending social circle");
             console.log(JSON.stringify(result))
             res.send(result);
         }   
