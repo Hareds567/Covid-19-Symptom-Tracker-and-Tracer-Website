@@ -1,22 +1,22 @@
 var mongoose  =  require('mongoose');
 
 var csvSchema = new mongoose.Schema({
-    StudentId:{
+    Ignore_StudentId:{
         type:String
     },
-    FirstName:{
+    Ignore_FirstName:{
         type:String
     },
-    LastName:{
+    Ignore_LastName:{
         type:String
     },
-    MiddleName:{
+    Ignore_MiddleName:{
         type:String
     },
-    MajorCode:{
+    Ignore_MajorCode:{
         type:String
     },
-    MajorName:{
+    Ignore_MajorName:{
         type:String
     },
     CourseId:{
@@ -25,7 +25,7 @@ var csvSchema = new mongoose.Schema({
     StudentEmail:{
         type:String
     },
-    StudentYear:{
+    Ignore_StudentYear:{
         type:String
     },
     StudentAddress:{
@@ -33,4 +33,4 @@ var csvSchema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('importTest',csvSchema);
+module.exports = mongoose.model('csvdump',csvSchema);
