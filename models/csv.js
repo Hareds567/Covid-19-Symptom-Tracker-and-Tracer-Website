@@ -28,7 +28,7 @@ var csvSchema = new mongoose.Schema({
     Ignore_StudentYear:{
         type:String
     },
-    Ignore_StudentAddress:{
+    StudentAddress:{
         type:String
     }
 });

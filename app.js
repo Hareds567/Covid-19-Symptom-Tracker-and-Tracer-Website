@@ -55,18 +55,37 @@ app.get('/',(req,res)=>{
 // ==============================================
 // POST: CSV upload
 // ==============================================
-app.post('/',uploads.single('csv'),(req,res)=>{
-    csv().fromFile(req.file.path).then((jsonObj)=>{
+app.post('/',uploads.single('csv'),(req,res)=> {
+    csv().fromFile(req.file.path).then((jsonObj)=> {
         console.log(jsonObj);
-        csvModel.insertMany(jsonObj,(err,data)=>{
-            if(err){
+        csvModel.insertMany(jsonObj,(err,data)=> {
+            if(err) {
                 console.log(err);
-            }else{
+            }
+            else {
                 res.redirect('/');
             }
      });
    });
 });
+
+app.post('/testcsv',(req,res)=> {
+    var query_no_doc_yet = csvModel.findOne({'StudentEmail': req.body.StudentEmail})
+    query_no_doc_yet.exec(function(err,query_results){
+        if(query_results==null){ // if no document exists
+            csvModel.create( // make a new document
+                {
+                    "CourseId": [req.body.CourseId],
+                    "StudentEmail" : req.body.StudentEmail,
+                    "StudentAddress" : req.body.StudentAddress,
+                }
+            )
+            res.status(200).json({
+                message: "New document for csvdumps made"
+            })
+        }
+    });
+})
 
 // TESTING: post request, used for pinging
 app.post('/postdata',(req,res)=> {
