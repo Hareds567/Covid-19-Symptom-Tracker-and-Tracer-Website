@@ -7,10 +7,6 @@ var socialCircle = require('./models/socialcircle')
 var csv         = require('csvtojson');
 var bodyParser  = require('body-parser');
 
-
-
-
-
 var storage = multer.diskStorage({
     destination:(req,file,cb)=>{
         cb(null,'./public/uploads');
@@ -24,7 +20,7 @@ var uploads = multer({storage:storage});
 //connect to db
 var url =   'mongodb+srv://Admin:admin@cluster0.zoibg.mongodb.net/COVID-App?retryWrites=true&w=majority'
 
-mongoose.connect(url,{useNewUrlParser:true})
+mongoose.connect(url,{useNewUrlParser:false})
 .then(()=>console.log('connected to db'))
 .catch((err)=>console.log(err))
 
@@ -35,14 +31,14 @@ var app = express();
 app.set('view engine','ejs');
 
 //fetch data from the request
-app.use(bodyParser.urlencoded({extended:false}));
+app.use(bodyParser.urlencoded({extended:true})); // fixed a bug
+app.use(bodyParser.json());
 
 //static folder
 app.use(express.static(path.resolve(__dirname,'public')));
 
-//default pageload
+// webpage stuff
 app.get('/',(req,res)=>{
-    
     csvModel.find((err,data)=>{
          if(err){
              console.log(err);
@@ -56,67 +52,144 @@ app.get('/',(req,res)=>{
     });
 });
 
-//Random Insertions for Testing
-
-// socialCircle.create(
-//     [
-//         {StudentGmail: 'nsaid.bahm@netfacc.com', First: 'yjmafiaazul12j@mixalo.com', Second: 'iliz8@mixalo.com',Third: 'hkhilawan3@fidelverta.me'}])
-
-
-
-// Handle Request
-app.post('/',uploads.single('csv'),(req,res)=>{
-csv()
-.fromFile(req.file.path)      
-.then((jsonObj)=>{
-    console.log(jsonObj);
-     csvModel.insertMany(jsonObj,(err,data)=>{
-            if(err){
+// ==============================================
+// POST: CSV upload
+// ==============================================
+app.post('/',uploads.single('csv'),(req,res)=> {
+    csv().fromFile(req.file.path).then((jsonObj)=> {
+        // does the mass insertion
+        csvModel.insertMany(jsonObj,(err,data)=> {
+            if(err) {
                 console.log(err);
-            }else{
+            }
+            else {
                 res.redirect('/');
             }
-     });
+        });
    });
 });
 
-app.post('/getSocialCircle',(req,res)=> {
-    var command = req.body.command
-    var query = socialCircle.findOne({StudentGmail: command})
-    query.exec(function(err,results){
-        if(results == null){
-            socialCircle.create({StudentGmail: command})
+// ==============================================
+// UNFINISEHD: trying to make a better CSV uplooad post request
+// ==============================================
+app.post('/testcsv',(req,res)=> {
+    var query_no_doc_yet = csvModel.findOne({'StudentEmail': req.body.StudentEmail})
+    query_no_doc_yet.exec(function(err,query_results){
+        if(query_results==null){ // if no document exists
+            csvModel.create( // make a new document
+                {
+                    "CourseId": [req.body.CourseId],
+                    "StudentEmail" : req.body.StudentEmail,
+                    "StudentAddress" : req.body.StudentAddress,
+                }
+            )
             res.status(200).json({
-                message: 'Null'
+                message: "New document for csvdumps made"
             })
-        }else {
-            var searchForSocialCircle = socialCircle.find({StudentGmail: command}).select('-StudentGmail')
-            res.status(200).json(JSON.stringify(searchForSocialCircle))
-        }
-    })
-    //res.status(200).json({
-    //    message: "Data recieved suscessfully"
-    //});
-});
+        } // end if
+        else {
+            csvModel.updateOne({StudentEmail:req.body.StudentEmail},  
+                {
+                    $push: {CourseId: req.body.CourseId}
+                }, function (err, docs) { 
+                if (err){ 
+                    console.log(err) 
+                } 
+                else{ 
+                    console.log("Csvdumps updated: ", docs); 
+                } 
+            })
+            res.status(200).json({
+                message: "Updated existing csvdumps doc"
+            })
+        } // end else
+    });
+})
 
+// TESTING: post request, used for pinging
 app.post('/postdata',(req,res)=> {
     var data = req.body.data;
     res.status(200).json({
-        message: "Data recieved suscessfully"
+        message: "Data recieved sucessfully."
     });
 });
 
-//Just Playing with different queries
+// TESTING: post request, used for printing post data
+app.post('/posttest',(req,res)=> {
+    var data = req.body;
+    console.log(data);
+    res.status(200).send(data);
+});
 
-// var query = csvModel.find({'MajorName': 'Computer Science BA'})
-// query.select('StudentEmail')
-// query.exec(function(err,list){
-//     console.log(list.MajorName, list.StudentEmail)
-//     if (err) return handleError(err)
+// TESTING: get request, used for pinging
+app.get('/gettest',(req,res)=> {
+    res.send('Get request sucessful.')
+});
 
-   
-// })
+// ==============================================
+// GET: Social circle
+// ==============================================
+const router = express.Router();
+app.use("/", router);
+router.route("/get_social_circle").get(function(req, res) {
+    //debug
 
+    console.log("Print req" + req.params)
+    //================================
+    var query_getSocial = socialCircle.findOne({'CircleUser': req.body.CircleUser})
+    query_getSocial.exec(function(err,result){
+            if(err){
+                console.log("get_social_circle: no social circle found");
+                res.send(err);
+            }else{
+                console.log("get_social_circle: get social circle");
+                console.log(JSON.stringify(result))
+                res.send(result);
+            }
+    });
+  });
+
+// ==============================================
+// POST: Social circle
+// ==============================================
+app.post('/post_social_circle',(req,res)=> {
+    console.log(req.body.CircleUser)
+    // findOne will return a single document
+    var query_no_doc_yet = socialCircle.findOne({'CircleUser': req.body.CircleUser})
+    query_no_doc_yet.exec(function(err,query_results){
+        if(query_results==null){ // if no document exists
+            socialCircle.create( // make a new document
+                {
+                    "CircleUser": req.body.CircleUser,
+                    "SocialCircle" : req.body.SocialCircle
+                }
+            )
+            res.status(200).json({
+                message: "New document for social circle made"
+            })
+        }
+        else { // document already exists, we can update existing one
+            socialCircle.updateOne({CircleUser:req.body.CircleUser},  
+                {
+                    SocialCircle: req.body.SocialCircle,
+                }, function (err, docs) { 
+                if (err){ 
+                    console.log(err) 
+                } 
+                else{ 
+                    console.log("Social circle updated: "); 
+                    // use the below, with docs, if u wanna debug
+                    //console.log("Social circle updated: ", docs); 
+                } 
+            }); 
+            res.status(200).json({
+                message: "Updated existing social circle doc"
+            })
+        }
+    });
+});
+//============================================================================================
+//Test queries
 var query2 = csvModel.find({}).select('StudentEmail') //gets all 
 query2.exec(function(err,results){
    // results.StudentEmail
@@ -137,7 +210,9 @@ var query5 = socialCircle.where({'StudentGmail':'jcabrera@oswego.edu'}).update({
 query5.exec(function(err,data){
     console.log(JSON.stringify(data))
 })   //abc@oswego.edu
+
+//===============================================================================================
+
 //assign port
 var port = process.env.PORT || 3000;
-
 app.listen(port,()=>console.log('server run at port '+ port));
