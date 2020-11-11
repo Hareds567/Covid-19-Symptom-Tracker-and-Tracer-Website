@@ -24,7 +24,6 @@ mongoose.connect(url,{useNewUrlParser:false})
 .then(()=>console.log('connected to db'))
 .catch((err)=>console.log(err))
 
-
 //init app
 var app = express();
 
@@ -40,7 +39,6 @@ app.use(express.static(path.resolve(__dirname,'public')));
 
 // webpage stuff
 app.get('/',(req,res)=>{
-    
     csvModel.find((err,data)=>{
          if(err){
              console.log(err);
@@ -53,16 +51,14 @@ app.get('/',(req,res)=>{
          }
     });
 });
+
 // ==============================================
 // POST: CSV upload
 // ==============================================
-// csv upload from website
 app.post('/',uploads.single('csv'),(req,res)=>{
-csv()
-.fromFile(req.file.path)      
-.then((jsonObj)=>{
-    console.log(jsonObj);
-     csvModel.insertMany(jsonObj,(err,data)=>{
+    csv().fromFile(req.file.path).then((jsonObj)=>{
+        console.log(jsonObj);
+        csvModel.insertMany(jsonObj,(err,data)=>{
             if(err){
                 console.log(err);
             }else{
@@ -112,20 +108,6 @@ router.route("/get_social_circle").get(function(req, res) {
 // ==============================================
 // POST: Social circle
 // ==============================================
-/* Post JSON body should be of format below
-{
-    "CircleUser": "jcabrera@oswego.edu",
-    "SocialCircle1": "socialcircle1@oswego.edu",
-    "SocialCircle2": "socialcircle22@oswego.edu",
-    "SocialCircle3": "socialcircle333@oswego.edu",
-    "SocialCircle4": "socialcircle4444@oswego.edu",
-    "SocialCircle5": "socialcircle55555@oswego.edu",
-    "SocialCircle6": "socialcircle666666@oswego.edu",
-    "SocialCircle7": "socialcircle7777777@oswego.edu",
-    "SocialCircle8": "socialcircle88888888@oswego.edu",
-    "SocialCircle9": "socialcircle999999999@oswego.edu"
-}
-*/
 app.post('/post_social_circle',(req,res)=> {
     console.log(req.body.CircleUser)
     // findOne will return a single document
