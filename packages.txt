@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 ESLint
+=======
+ESLint
+>>>>>>> 166c45be9666cc6aa2db2c7c4ce147061a244f6e
 Prettier

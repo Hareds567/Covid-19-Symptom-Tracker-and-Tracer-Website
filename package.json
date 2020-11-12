@@ -1,11 +1,11 @@
 {
   "name": "csv",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Install Packages",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "devStart": "nodemon .",
+    "start": "node ."
   },
   "keywords": [],
   "author": "",
@@ -18,12 +18,18 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "git": "^0.1.5",
+<<<<<<< HEAD
     "install": "^0.13.0",
     "lodash": "^4.17.20",
     "mongoose": "^5.10.14",
     "multer": "^1.4.2",
     "nodemailer": "^6.4.15",
     "oauth": "^0.9.15",
+=======
+    "lodash": "^4.17.20",
+    "mongoose": "^5.10.11",
+    "multer": "^1.4.2",
+>>>>>>> 166c45be9666cc6aa2db2c7c4ce147061a244f6e
     "passport": "^0.4.1",
     "passport-google": "^0.3.0",
     "passport-google-oauth": "^2.0.0"
