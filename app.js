@@ -45,7 +45,7 @@ const {
 } = process.env;
 
 mongoose
-  .connect('mongodb+srv://Admin:admin@cluster0.zoibg.mongodb.net/COVID-App?retryWrites=true&w=majority', {
+  .connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -137,8 +137,8 @@ const GOOGLE_CLIENT_SECRET = api_secret;
 passport.use(
   new GoogleStrategy(
     {  //=========================================================================================================================================================
-      clientID: '195207891499-sfgfbosugpmbu69o9n4ipae8tjbhvc6v.apps.googleusercontent.com', //GOOGLE_CLIENT_ID,
-      clientSecret: 's3n2tsIy3twFVMQ9u7NRRw6c', //GOOGLE_CLIENT_SECRET,
+      clientID: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
       //callbackURL: "http://localhost:3000/auth/google/callback",
       //callbackURL: "https://covidtrackerdev.herokuapp.com/",
       callbackURL: "http://covidtrackerdev.herokuapp.com/auth/google/callback",
