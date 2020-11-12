@@ -20,11 +20,11 @@ const session = require("express-session");
 const passport = require("passport");
 var userProfile;
 
-/*const isValid = (domain) => {
+const isValid = (domain) => {
   if (!userProfile || _.isEmpty(userProfile)) return false;
 
-  return userProfile?._json.hd === "oswego.edu";
-};*/
+  return userProfile._json.hd === "oswego.edu";
+};
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
