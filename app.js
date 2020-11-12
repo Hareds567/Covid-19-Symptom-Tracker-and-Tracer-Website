@@ -106,49 +106,83 @@ app.post('/testcsv',(req,res)=> {
     });
 })
 
-// TESTING: post request, used for pinging
-app.post('/postdata',(req,res)=> {
-    var data = req.body.data;
+// TESTING: post request, used for printing post data
+app.post('/post_test',(req,res)=> {
+    console.log('/post_test: printing req.body below')
+    console.log(req.body)
+    console.log('end /post_test')
     res.status(200).json({
-        message: "Data recieved sucessfully."
+        message: "/post_test"
     });
 });
 
-// TESTING: post request, used for printing post data
-app.post('/posttest',(req,res)=> {
-    var data = req.body;
-    console.log(data);
-    res.status(200).send(data);
+// TESTING: get request, used for pinging
+app.get('/get_test',(req,res)=> {
+    console.log('/get_test: printing req.body below')
+    console.log(req.body)
+    console.log('end /get_test')
+    res.status(200).json({
+        message: "/get_test"
+    });
 });
 
-// TESTING: get request, used for pinging
-app.get('/gettest',(req,res)=> {
-    res.send('Get request sucessful.')
-});
+// ==============================================
+// OLD version, it never worked
+// GET: Social circle
+// ==============================================
+// const router = express.Router();
+// app.use("/", router);
+// router.route("/get_social_circle").get(function(req, res) {
+//     var query_getSocial = socialCircle.findOne({CircleUser: req.body.CircleUser})
+//     query_getSocial.exec(function(err,result){
+//         if(err){
+//             console.log("Error")
+//             res.send(err);
+//         }
+//         else if(result == null) {
+//             console.log('debugging req.body is below')
+//             console.log(req.body)
+//             console.log("Result was null, no social circle was found");
+//             res.send("Result was null, no social circle was found")
+//         }
+//         else{
+//             console.log("get_social_circle: sending social circle");
+//             console.log(JSON.stringify(result))
+//             res.send(result);
+//         }   
+//     }); // end query
+// });
 
 // ==============================================
 // GET: Social circle
 // ==============================================
-const router = express.Router();
-app.use("/", router);
-router.route("/get_social_circle").get(function(req, res) {
-    var query_getSocial = socialCircle.findOne({'CircleUser': req.body.CircleUser})
+app.post('/get_social_circle',(req,res)=> {
+    var query_getSocial = socialCircle.findOne({CircleUser: req.body.CircleUser})
     query_getSocial.exec(function(err,result){
-            if(err){
-                console.log("get_social_circle: no social circle found");
-                res.send(err);
-            }else{
-                console.log("get_social_circle: get social circle");
-                console.log(JSON.stringify(result))
-                res.send(result);
-            }
-    });
-  });
+        if(err){
+            console.log("Error")
+            res.send(err);
+        }
+        else if(result == null) {
+            console.log("/get_social_circle: error null");
+            res.send("Result was null, no social circle was found")
+        }
+        else{
+            console.log("/get_social_circle: sucessful");
+            console.log(JSON.stringify(result))
+            res.send(result);
+        }   
+    }); // end query
+})
 
 // ==============================================
 // POST: Social circle
 // ==============================================
 app.post('/post_social_circle',(req,res)=> {
+    // DEBUGGIN
+    console.log('Justin im debugging, req.body is below')
+    console.log(req.body)
+    console.log('end debugging')
     console.log(req.body.CircleUser)
     // findOne will return a single document
     var query_no_doc_yet = socialCircle.findOne({'CircleUser': req.body.CircleUser})
@@ -182,8 +216,58 @@ app.post('/post_social_circle',(req,res)=> {
                 message: "Updated existing social circle doc"
             })
         }
-    });
+    }); // end query
 });
+
+// ==============================================
+// Email function
+// ==============================================
+app.post('/post_send_alert',(req,res)=> {
+    console.log(req.body.Email)
+    var query_social_circle = socialCircle.findOne({'CircleUser': req.body.Email})
+    query_social_circle.exec(function(err,query_results){
+        if (err) {
+            console.log(err)
+        }
+        else if (query_results == null) {
+            console.log('Email notify error, no social circle found')
+            res.status(200).json({
+                message: "Email notify error, no social circle doc found"
+            })
+        }
+        else {
+            console.log(query_results.SocialCircle)
+            var notify_array = query_results.SocialCircle
+            var nodemailer = require('nodemailer');
+            var transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                user: 'teamecovidapp@gmail.com',
+                pass: 'lepjjj2020'  //lingyu,eric,pierce,justin,jeff,john
+                }
+            });
+            
+            var mailOptions = {
+                from: 'teamecovidapp@gmail.com',
+                to: notify_array,              //change this to notify_array
+                subject: '(Testing app) You have been exposed to COVID',
+                //text: 'You should probably Quarantine or something.'   
+                html: '<h1>This is a test email for a app that is being developed, if you got this by mistake ignore this email.</h1> <h2>Someone You Have Been Close to Has Tested Positive for Covid-19</h2><p>Visit <a href="https://oswego.universitytickets.com/">here</a> to schedule an appointment for a Covid-19 test at SUNY Oswego. Covid-19 resources can be found <a href=" https://www.cdc.gov/coronavirus/2019-ncov/index.html">here</a></p>'
+            };
+            
+            transporter.sendMail(mailOptions, function(error, info){
+                if (error) {
+                console.log(error);
+                } else {
+                console.log('Email sent: ' + info.response);
+                }
+            });
+            res.status(200).json({
+                message: "Alert sent sucessfully"
+            })
+        } // end else
+    }) // end query
+}) // email post email alert
 
 //assign port
 var port = process.env.PORT || 3000;
