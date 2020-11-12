@@ -134,7 +134,7 @@ app.use("/", router);
 router.route("/get_social_circle").get(function(req, res) {
     //debug
 
-    console.log("Print req" + req.params)
+    console.log("Print req" + req.body.key )
     //================================
     var query_getSocial = socialCircle.findOne({'CircleUser': req.body.CircleUser})
     query_getSocial.exec(function(err,result){
@@ -190,26 +190,26 @@ app.post('/post_social_circle',(req,res)=> {
 });
 //============================================================================================
 //Test queries
-var query2 = csvModel.find({}).select('StudentEmail') //gets all 
-query2.exec(function(err,results){
-   // results.StudentEmail
-    console.log(JSON.stringify(results))
-})
+// var query2 = csvModel.find({}).select('StudentEmail') //gets all 
+// query2.exec(function(err,results){
+//    // results.StudentEmail
+//     console.log(JSON.stringify(results))
+// })
 
-var query3 = csvModel.find({'MajorName': 'Computer Science BA'}).select('StudentEmail FirstName')
-query3.exec(function(err,data){
-    console.log(JSON.stringify(data))
-})
+// var query3 = csvModel.find({'MajorName': 'Computer Science BA'}).select('StudentEmail FirstName')
+// query3.exec(function(err,data){
+//     console.log(JSON.stringify(data))
+// })
 
-var query4 = socialCircle.find({'StudentGmail': 'jcabrera@oswego.edu'}).select('-StudentGmail')
-query4.exec(function(err,data){
-    console.log(JSON.stringify(data))
-})
+// var query4 = socialCircle.find({'StudentGmail': 'jcabrera@oswego.edu'}).select('-StudentGmail')
+// query4.exec(function(err,data){
+//     console.log(JSON.stringify(data))
+// })
 
-var query5 = socialCircle.where({'StudentGmail':'jcabrera@oswego.edu'}).update({First:'abc'}) 
-query5.exec(function(err,data){
-    console.log(JSON.stringify(data))
-})   //abc@oswego.edu
+// var query5 = socialCircle.where({'StudentGmail':'jcabrera@oswego.edu'}).update({First:'abc'}) 
+// query5.exec(function(err,data){
+//     console.log(JSON.stringify(data))
+// })   //abc@oswego.edu
 
 //===============================================================================================
 
