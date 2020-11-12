@@ -393,5 +393,5 @@ app.post('/post_send_alert',(req,res)=> {
 
 
 //assign port
-const port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 app.listen(port, () => console.log("server run at port " + port));
