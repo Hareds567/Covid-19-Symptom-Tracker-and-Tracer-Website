@@ -1,15 +1,8 @@
 {
-  "name": "csv",
+  "name": "csvtomongo-master",
   "version": "1.0.0",
   "description": "Install Packages",
   "main": "app.js",
-  "scripts": {
-    "devStart": "nodemon .",
-    "start": "node ."
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "csvtojson": "^2.0.10",
@@ -18,23 +11,28 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "git": "^0.1.5",
-<<<<<<< HEAD
-    "install": "^0.13.0",
     "lodash": "^4.17.20",
     "mongoose": "^5.10.14",
     "multer": "^1.4.2",
-    "nodemailer": "^6.4.15",
     "oauth": "^0.9.15",
-=======
-    "lodash": "^4.17.20",
-    "mongoose": "^5.10.11",
-    "multer": "^1.4.2",
->>>>>>> 166c45be9666cc6aa2db2c7c4ce147061a244f6e
     "passport": "^0.4.1",
     "passport-google": "^0.3.0",
     "passport-google-oauth": "^2.0.0"
   },
-  "devDependencies": {
-    "nodemon": "^2.0.6"
-  }
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hareds567/CovidWebsite.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hareds567/CovidWebsite/issues"
+  },
+  "homepage": "https://github.com/Hareds567/CovidWebsite#readme"
 }
