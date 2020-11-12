@@ -45,7 +45,7 @@ const {
 } = process.env;
 
 mongoose
-  .connect(url, {
+  .connect('mongodb+srv://Admin:admin@cluster0.zoibg.mongodb.net/COVID-App?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
