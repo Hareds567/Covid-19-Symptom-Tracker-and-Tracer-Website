@@ -139,9 +139,9 @@ passport.use(
     {  //=========================================================================================================================================================
       clientID: '195207891499-sfgfbosugpmbu69o9n4ipae8tjbhvc6v.apps.googleusercontent.com', //GOOGLE_CLIENT_ID,
       clientSecret: 's3n2tsIy3twFVMQ9u7NRRw6c', //GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/callback",
+      //callbackURL: "http://localhost:3000/auth/google/callback",
       //callbackURL: "https://covidtrackerdev.herokuapp.com/",
-      //callbackURL: "http://covidtrackerdev.herokuapp.com/auth/google/callback",
+      callbackURL: "http://covidtrackerdev.herokuapp.com/auth/google/callback",
       hostedDomain: "oswego.edu",
       loginHint: "You must use an oswego.eu email to access this resource!",
     },
