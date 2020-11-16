@@ -95,7 +95,9 @@ app.get("/", (req, res) => {
   if (isValid()) return res.status(200).redirect("/dashboard");
   else res.status(200).render("auth");
 });
-
+app.get("/newLogin", (req, res) => {
+  res.status(200).render('demo')
+});
 app.get("/dashboard", (req, res) => {
   if (!isValid()) {
     req.session.destroy(() => {
@@ -183,6 +185,7 @@ app.get(
 // ==============================================
 app.post('/',uploads.single('csv'),(req,res)=> {
   csv().fromFile(req.file.path).then((jsonObj)=> {
+      jsonObj.
       // does the mass insertion
       csvModel.insertMany(jsonObj,(err,data)=> {
           if(err) {
