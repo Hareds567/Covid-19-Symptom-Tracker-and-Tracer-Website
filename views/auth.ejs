@@ -3,6 +3,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+   <!-- New Google Login Script and Meta -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="534704394140-aoflfr8vvca3nh447aigmr5rhb4sr5i3.apps.googleusercontent.com">
+   <!-- End -->
     <title>Authentication Required</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link
@@ -20,6 +25,7 @@
       body {
         height: 100%;
       }
+      
     </style>
   </head>
   <body
@@ -29,9 +35,20 @@
       <div class="jumbotron text-center text-primary">
         <h1><span class="fa fa-lock"></span> Social Authentication</h1>
         <p>Login or Register with:</p>
-        <a href="/auth/google" class="btn btn-danger"
-          ><span class="fa fa-google"></span> SignIn with Google</a
-        >
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        <script>
+          function onSignIn(googleUser) {
+            var id_token = googleUser.getAuthResponse().id_token;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/dashboard");
+            xhr.onload = function(){
+              console.log('Signed in as: ' + xhr.responseText);
+            }
+          }
+        </script>
+        <!--<a href="/auth/google" class="btn btn-danger"
+          ><span class="fa fa-google"></span> SignIn with Google
+        </a>-->
       </div>
     </div>
   </body>
