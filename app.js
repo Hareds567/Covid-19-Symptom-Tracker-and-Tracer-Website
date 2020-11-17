@@ -18,6 +18,7 @@ require("dotenv").config();
  */
 const session = require("express-session");
 const passport = require("passport");
+const { trimEnd } = require("lodash");
 var userProfile;
 
 const isValid = (domain) => {
@@ -80,6 +81,7 @@ app.use(passport.session());
 
 //set the template engine
 app.set("view engine", "ejs");
+app.set('views', __dirname + '/views');
 
 app.set("json spaces", 2);
 
@@ -95,9 +97,35 @@ app.get("/", (req, res) => {
   if (isValid()) return res.status(200).redirect("/dashboard");
   else res.status(200).render("auth");
 });
-app.get("/newLogin", (req, res) => {
-  res.status(200).render('demo')
+//======================================================================================================
+//Testing new Google Login
+//======================================================================================================
+app.get("/newLogin2", (req, res) => {
+  res.redirect("dashboard2");
+
 });
+app.post("/newLogin", (req, res) => {
+  console.log(__dirname)
+  res.render("demo");
+});
+app.get("/testLogin", (req,res) =>{
+  res.render("demo");
+});
+app.get("/dashboard2", (req, res) => {
+    csvModel.find((err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        if (data != "") {
+          res.render("demo", { data, user: userProfile });
+        } else {
+          res.render("demo", { data: "" });
+        }
+      }
+    });
+});
+
+//============================================================================================================
 app.get("/dashboard", (req, res) => {
   if (!isValid()) {
     req.session.destroy(() => {
