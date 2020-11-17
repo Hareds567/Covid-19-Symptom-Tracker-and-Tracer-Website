@@ -103,14 +103,8 @@ app.get("/", (req, res) => {
 app.get("/upload", (req, res) => {
   res.render("demo");
 });
-app.post("/newLogin", (req, res) => {
-  console.log(__dirname)
-  res.render("demo");
-});
-app.get("/testLogin", (req, res) => {
-  res.render("demo");
-});
-app.get("/dashboard2", (req, res) => {
+
+app.get("/dashboard", (req, res) => {
   csvModel.find((err, data) => {
     if (err) {
       console.log(err);
@@ -125,24 +119,6 @@ app.get("/dashboard2", (req, res) => {
 });
 
 //============================================================================================================
-app.get("/dashboard", (req, res) => {
-  if (!isValid()) {
-    req.session.destroy(() => {
-      return res.status(403).redirect("/");
-    });
-  } else
-    csvModel.find((err, data) => {
-      if (err) {
-        console.log(err);
-      } else {
-        if (data != "") {
-          res.render("demo", { data, user: userProfile });
-        } else {
-          res.render("demo", { data: "" });
-        }
-      }
-    });
-});
 
 /**
  * Passport serialization and deserialization
@@ -221,6 +197,30 @@ app.post('/', uploads.single('csv'), (req, res) => {
       });
   });
 });
+
+app.post('/testCSV',uploads.single('csv'),(req,res)=> {
+  csv().fromFile(req.file.path).then((jsonObj)=> {
+      // does the mass insertion
+      jsonObj.forEach(function(student){
+          var temp = csvModel.findOne({'StudentEmail':student.StudentEmail})
+          if(temp!=null){
+              var cid = temp.CourseId
+              console.log(cid);
+              //cid.push(student.CourseId)
+              csvModel.updateOne({CourseId: cid})
+          }else{
+              csvModel.insert(student,(err,data)=>{
+                  if(err){
+                      console.log(err);
+                  }
+              })
+          }
+      });
+
+ });
+});
+
+
 
 // ==============================================
 // UNFINISEHD: trying to make a better CSV uplooad post request

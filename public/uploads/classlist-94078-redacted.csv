@@ -1,26 +1,26 @@
-ID,LastName,FirstName,Mid,CRN,Major,CRN,Email,Year,a,b,c,Zip
-80xxxxxxx,Allaire,Peter,,"	 132",Information Science BA,CSC380800,pallaire@oswego.edu,2nd sem junior,"7060 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Bowling,William,R,"	 081",Computer Science BS,CSC380800,wbowling@oswego.edu,1st sem junior,"7061 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Cabrera,Justin,I,"	 132",Information Science BA,CSC380800,jcabrera@oswego.edu,1st sem junior,"7062 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Caldwell,Meredith,Grace,"	 081",Computer Science BS,CSC380800,mcaldwe3@oswego.edu,1st sem senior,"7063 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Chen,Yibo,,"	 000",Undergraduate Non-Degree,CSC380800,ychen26@oswego.edu,Fr - non-degree,"7064 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Chiasson,Charles,Robert,"	 080",Computer Science BA,CSC380800,cchiass2@oswego.edu,1st sem senior,"7065 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Cho,Jeff,Hee Joong,"	 080",Computer Science BA,CSC380800,jcho4@oswego.edu,2nd sem senior,"7066 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Cuevas,Eric,E,"	 081",Computer Science BS,CSC380800,ecuevas@oswego.edu,1st sem junior,"7067 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Hurd,Pierce,M,"	 080",Computer Science BA,CSC380800,phurd@oswego.edu,2nd sem junior,"7069 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Khanal,Durga,,"	 081",Computer Science BS,CSC380800,dkhanal@oswego.edu,2nd sem senior,"7070 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,LaPage,Tyler,James,"	 081",Computer Science BS,CSC380800,tyler.lapage@oswego.edu,2nd sem junior,"7071 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Lovell,Owen,Michael,"	 081",Computer Science BS,CSC380800,olovell@oswego.edu,2nd sem junior,"7072 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Maldonado,Gregory,,"	 081",Computer Science BS,CSC380800,gmaldona@oswego.edu,1st sem sophomore,"7073 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Malone,Austin,Alexander,"	 081",Computer Science BS,CSC380800,amalone5@oswego.edu,1st sem junior,"7074 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Marlett,Christian,James,"	 081",Computer Science BS,CSC380800,cmarlett@oswego.edu,2nd sem senior,"7075 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Metzner,Jessica,D,"	 160",Meteorology BS,CSC380800,jmetzner@oswego.edu,2nd sem senior,"7076 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Michaelis,Matthew,Manfred,"	 080",Computer Science BA,CSC380800,mmichael@oswego.edu,2nd sem sophomore,"7077 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Miller,Jared,Evan,"	 080",Computer Science BA,CSC380800,jmille20@oswego.edu,2nd sem senior,"7078 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Netti,Robert,Matthew,"	 081",Computer Science BS,CSC380800,rnetti@oswego.edu,1st sem senior,"7079 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Owens,John,J,"	 080",Computer Science BA,CSC380800,jowens4@oswego.edu,1st sem junior,"7080 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Quill,Dennis,Jeremiah,"	 080",Computer Science BA,CSC380800,dennis.quill@oswego.edu,Fifth Year Senior,"7081 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Strong,David,Jacob andrew,"	 081",Computer Science BS,CSC380800,dstrong@oswego.edu,1st sem junior,"7082 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Taylor,Brian,Christopher,"	 480",Software Engineering BS,CSC380800,btaylor5@oswego.edu,2nd sem senior,"7083 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Trut,Nazar,,"	 080",Computer Science BA,CSC380800,ntrut@oswego.edu,2nd sem junior,"7084 State Route 104	Oswego	NY	13126",,,
-80xxxxxxx,Zi,Lingyu,,"	 080",Computer Science BA,CSC380800,lzi@oswego.edu,Fifth Year Senior,"7086 State Route 104	Oswego	NY	13126",,,
+Ignore_StudentId,Ignore_FirstName,Ignore_LastName,Ignore_MiddleName,Ignore_MajorCode,Ignore_MajorName,CourseID,StudentEmail,StudentYear,StudentAddress
+80xxxxxxx,Allaire,Peter,,"	 132",Information Science BA,CSC380800,pallaire@oswego.edu,2nd sem junior,"7060 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Bowling,William,R,"	 081",Computer Science BS,CSC380800,wbowling@oswego.edu,1st sem junior,"7061 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Cabrera,Justin,I,"	 132",Information Science BA,CSC380800,jcabrera@oswego.edu,1st sem junior,"7062 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Caldwell,Meredith,Grace,"	 081",Computer Science BS,CSC380800,mcaldwe3@oswego.edu,1st sem senior,"7063 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Chen,Yibo,,"	 000",Undergraduate Non-Degree,CSC380800,ychen26@oswego.edu,Fr - non-degree,"7064 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Chiasson,Charles,Robert,"	 080",Computer Science BA,CSC380800,cchiass2@oswego.edu,1st sem senior,"7065 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Cho,Jeff,Hee Joong,"	 080",Computer Science BA,CSC380800,jcho4@oswego.edu,2nd sem senior,"7066 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Cuevas,Eric,E,"	 081",Computer Science BS,CSC380800,ecuevas@oswego.edu,1st sem junior,"7067 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Hurd,Pierce,M,"	 080",Computer Science BA,CSC380800,phurd@oswego.edu,2nd sem junior,"7069 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Khanal,Durga,,"	 081",Computer Science BS,CSC380800,dkhanal@oswego.edu,2nd sem senior,"7070 State Route 104	Oswego	NY	13126"
+80xxxxxxx,LaPage,Tyler,James,"	 081",Computer Science BS,CSC380800,tyler.lapage@oswego.edu,2nd sem junior,"7071 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Lovell,Owen,Michael,"	 081",Computer Science BS,CSC380800,olovell@oswego.edu,2nd sem junior,"7072 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Maldonado,Gregory,,"	 081",Computer Science BS,CSC380800,gmaldona@oswego.edu,1st sem sophomore,"7073 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Malone,Austin,Alexander,"	 081",Computer Science BS,CSC380800,amalone5@oswego.edu,1st sem junior,"7074 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Marlett,Christian,James,"	 081",Computer Science BS,CSC380800,cmarlett@oswego.edu,2nd sem senior,"7075 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Metzner,Jessica,D,"	 160",Meteorology BS,CSC380800,jmetzner@oswego.edu,2nd sem senior,"7076 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Michaelis,Matthew,Manfred,"	 080",Computer Science BA,CSC380800,mmichael@oswego.edu,2nd sem sophomore,"7077 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Miller,Jared,Evan,"	 080",Computer Science BA,CSC380800,jmille20@oswego.edu,2nd sem senior,"7078 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Netti,Robert,Matthew,"	 081",Computer Science BS,CSC380800,rnetti@oswego.edu,1st sem senior,"7079 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Owens,John,J,"	 080",Computer Science BA,CSC380800,jowens4@oswego.edu,1st sem junior,"7080 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Quill,Dennis,Jeremiah,"	 080",Computer Science BA,CSC380800,dennis.quill@oswego.edu,Fifth Year Senior,"7081 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Strong,David,Jacob andrew,"	 081",Computer Science BS,CSC380800,dstrong@oswego.edu,1st sem junior,"7082 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Taylor,Brian,Christopher,"	 480",Software Engineering BS,CSC380800,btaylor5@oswego.edu,2nd sem senior,"7083 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Trut,Nazar,,"	 080",Computer Science BA,CSC380800,ntrut@oswego.edu,2nd sem junior,"7084 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Zi,Lingyu,,"	 080",Computer Science BA,CSC380800,lzi@oswego.edu,Fifth Year Senior,"7086 State Route 104	Oswego	NY	13126"
