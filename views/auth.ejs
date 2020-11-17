@@ -23,7 +23,7 @@
       } else {
         document.getElementById('discMessage').style.display = 'none';
         console.log("Moving to Upload")
-        //window.location.replace("/upload");
+        window.location.replace("/upload");
         console.log('Name: ' + profile.getName());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
       }
@@ -64,13 +64,13 @@
     <div class="jumbotron text-center text-primary">
       <h1><span class="fa fa-lock"></span> Social Authentication</h1>
       <p>Login or Register with:</p>
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-      <!-- <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google"></span> SignIn with Google -->
-
-      </a>
+      <div class="btn btn-danger">
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      </div>
       <br><br>
-      <div id='discMessage' style="display:none"><p>Please Login with and Oswego Google Account</p></div>
+      <div id='discMessage' style="display:none">
+        <p>Please Login with and Oswego Google Account</p>
+      </div>
     </div>
   </div>
 </body>
