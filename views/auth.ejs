@@ -11,22 +11,29 @@
     function onSignIn(googleUser) {
       var id_token = googleUser.getAuthResponse().id_token;
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", "/newLogin2");
-      xhr.send();
-      var res = xhr.response;
-      // redirect(res);
-      res.open;
-      console.log(res.open);
-
-
+      var emailRegex = RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(oswego)\\.edu$");
       var profile = googleUser.getBasicProfile();
-      console.log('Name: ' + profile.getName());
-      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      //Compare Emails
+      var emailResult = emailRegex.test(profile.getEmail());
+      console.log(emailResult);
+      if (!emailResult) {
+        console.log('Disconnecting')
+        gapi.auth2.getAuthInstance().disconnect();
+        document.getElementById('discMessage').style.display = 'block';
+      } else {
+        document.getElementById('discMessage').style.display = 'none';
+        console.log("Moving to Upload")
+        window.location.replace("/upload");
+        console.log('Name: ' + profile.getName());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+      }
+
+
+
     }
 
-    function redirect(res) {
-      window.location = res;
-    }
+
+
   </script>
   <meta name="google-signin-client_id"
     content="534704394140-aoflfr8vvca3nh447aigmr5rhb4sr5i3.apps.googleusercontent.com">
@@ -45,6 +52,10 @@
     body {
       height: 100%;
     }
+
+    .g-signin2 {
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -55,8 +66,11 @@
       <p>Login or Register with:</p>
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
-      <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google"></span> SignIn with Google
+      <!-- <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google"></span> SignIn with Google -->
+
       </a>
+      <br><br>
+      <div id='discMessage' style="display:none"><p>Please Login with and Oswego Google Account</p></div>
     </div>
   </div>
 </body>

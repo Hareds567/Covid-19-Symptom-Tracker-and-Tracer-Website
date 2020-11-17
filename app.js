@@ -100,9 +100,8 @@ app.get("/", (req, res) => {
 //======================================================================================================
 //Testing new Google Login
 //======================================================================================================
-app.get("/newLogin2", (req, res) => {
-  res.redirect("/dashboard");
-
+app.get("/upload", (req, res) => {
+  res.render("demo");
 });
 app.post("/newLogin", (req, res) => {
   console.log(__dirname)
