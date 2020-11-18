@@ -1,4 +1,4 @@
-Ignore_StudentId,Ignore_FirstName,Ignore_LastName,Ignore_MiddleName,Ignore_MajorCode,Ignore_MajorName,CourseID,StudentEmail,StudentYear,StudentAddress
+StudentId,LastName,FirstName,MiddleName,MajorCode,MajorName,CourseId,StudentEmail,StudentYear,StudentAddress
 80xxxxxxx,Allaire,Peter,,"	 132",Information Science BA,CSC380800,pallaire@oswego.edu,2nd sem junior,"7060 State Route 104	Oswego	NY	13126"
 80xxxxxxx,Bowling,William,R,"	 081",Computer Science BS,CSC380800,wbowling@oswego.edu,1st sem junior,"7061 State Route 104	Oswego	NY	13126"
 80xxxxxxx,Cabrera,Justin,I,"	 132",Information Science BA,CSC380800,jcabrera@oswego.edu,1st sem junior,"7062 State Route 104	Oswego	NY	13126"

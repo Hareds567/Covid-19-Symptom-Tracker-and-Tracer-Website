@@ -185,79 +185,46 @@ app.get("/auth/google/callback",
 // ==============================================
 app.post('/', uploads.single('csv'), (req, res) => {
   csv().fromFile(req.file.path).then((jsonObj) => {
-    jsonObj.
       // does the mass insertion
-      csvModel.insertMany(jsonObj, (err, data) => {
-        if (err) {
-          console.log(err);
-        }
-        else {
-          res.redirect('/');
-        }
-      });
+     jsonObj.forEach(function(student){
+       var temp = csvModel.findOne({'StudentEmail':student.StudentEmail})
+       temp.exec(function (err,query_results){
+         if(err){
+           console.log(err)
+         }
+         else if(query_results == null){
+           var Courses = [student.CourseId]
+           csvModel.create(
+               {
+                 'StudentEmail':student.StudentEmail,
+                 'CourseId':Courses
+               }
+           )
+         }
+         else{
+           var list = query_results.CourseId
+           if(!list.includes(student.CourseId)){
+             list.push(student.CourseId)
+           }
+           csvModel.updateOne({ 'StudentEmail': student.StudentEmail },
+               {
+                'CourseId': list,
+               }, function (err, docs) {
+                 if (err) {
+                   console.log(err)
+                 }
+                 else {
+                   console.log( student.CourseId);
+                   // use the below, with docs, if u wanna debug
+                   //console.log("Social circle updated: ", docs);
+                 }
+               })
+         }
+       })
+     })
   });
 });
 
-app.post('/testCSV',uploads.single('csv'),(req,res)=> {
-  csv().fromFile(req.file.path).then((jsonObj)=> {
-      // does the mass insertion
-      jsonObj.forEach(function(student){
-          var temp = csvModel.findOne({'StudentEmail':student.StudentEmail})
-          if(temp!=null){
-              var cid = temp.CourseId
-              console.log(cid);
-              //cid.push(student.CourseId)
-              csvModel.updateOne({CourseId: cid})
-          }else{
-              csvModel.insert(student,(err,data)=>{
-                  if(err){
-                      console.log(err);
-                  }
-              })
-          }
-      });
-
- });
-});
-
-
-
-// ==============================================
-// UNFINISEHD: trying to make a better CSV uplooad post request
-// ==============================================
-app.post('/testcsv', (req, res) => {
-  var query_no_doc_yet = csvModel.findOne({ 'StudentEmail': req.body.StudentEmail })
-  query_no_doc_yet.exec(function (err, query_results) {
-    if (query_results == null) { // if no document exists
-      csvModel.create( // make a new document
-        {
-          "CourseId": [req.body.CourseId],
-          "StudentEmail": req.body.StudentEmail,
-          "StudentAddress": req.body.StudentAddress,
-        }
-      )
-      res.status(200).json({
-        message: "New document for csvdumps made"
-      })
-    } // end if
-    else {
-      csvModel.updateOne({ StudentEmail: req.body.StudentEmail },
-        {
-          $push: { CourseId: req.body.CourseId }
-        }, function (err, docs) {
-          if (err) {
-            console.log(err)
-          }
-          else {
-            console.log("Csvdumps updated: ", docs);
-          }
-        })
-      res.status(200).json({
-        message: "Updated existing csvdumps doc"
-      })
-    } // end else
-  });
-})
 
 // TESTING: post request, used for printing post data
 app.post('/post_test', (req, res) => {
@@ -279,32 +246,6 @@ app.get('/get_test', (req, res) => {
   });
 });
 
-// ==============================================
-// OLD version, it never worked
-// GET: Social circle
-// ==============================================
-// const router = express.Router();
-// app.use("/", router);
-// router.route("/get_social_circle").get(function(req, res) {
-//     var query_getSocial = socialCircle.findOne({CircleUser: req.body.CircleUser})
-//     query_getSocial.exec(function(err,result){
-//         if(err){
-//             console.log("Error")
-//             res.send(err);
-//         }
-//         else if(result == null) {
-//             console.log('debugging req.body is below')
-//             console.log(req.body)
-//             console.log("Result was null, no social circle was found");
-//             res.send("Result was null, no social circle was found")
-//         }
-//         else{
-//             console.log("get_social_circle: sending social circle");
-//             console.log(JSON.stringify(result))
-//             res.send(result);
-//         }   
-//     }); // end query
-// });
 
 // ==============================================
 // GET: Social circle
