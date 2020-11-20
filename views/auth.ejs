@@ -9,21 +9,42 @@
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <script>
     function onSignIn(googleUser) {
+      //sends token to backend
       var id_token = googleUser.getAuthResponse().id_token;
+      console.log("id_token " + id_token)
       var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/tokensignin');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function () {
+        console.log('Signed in as: ' + xhr.responseText);
+      };
+      xhr.send(id_token);
+
+      //Check email format
       var emailRegex = RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(oswego)\\.edu$");
       var profile = googleUser.getBasicProfile();
-      //Compare Emails
       var emailResult = emailRegex.test(profile.getEmail());
       console.log(emailResult);
+      //if format is correct move to the upload page
       if (!emailResult) {
         console.log('Disconnecting');
         gapi.auth2.getAuthInstance().disconnect();
         document.getElementById('discMessage').style.display = 'block';
       } else {
+
         document.getElementById('discMessage').style.display = 'none';
         console.log("Moving to Upload")
-        window.location.replace("/upload");
+        
+        // var url = '/upload'
+        // var Return_URL = 'true'
+        // var form = $('<form action="' + url + '" method="post">' +
+        //   '<input type="text" name="api_url" value="' + Return_URL + '" />' +
+        //   '</form>');
+        // $('body').append(form);
+        // form.submit();
+
+        //window.location.replace("/upload");
+
         console.log('Name: ' + profile.getName());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
       }
