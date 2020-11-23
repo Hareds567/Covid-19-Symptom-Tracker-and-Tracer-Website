@@ -590,7 +590,7 @@ app.post('/post_courselist', (req, res) => {
       csvModel.create( // make a new document
         {
           "StudentEmail": req.body.studentEmail,
-          "CourseId": req.body.classList
+          "CourseId": req.body.CourseId
         }
       )
       res.status(200).json({
@@ -600,7 +600,7 @@ app.post('/post_courselist', (req, res) => {
     else { // document already exists, we can update existing one
       csvModel.updateOne({ StudentEmail: req.body.studentEmail },
         {
-          CourseId: req.body.classList,
+          CourseId: req.body.CourseId,
         }, function (err, docs) {
           if (err) {
             console.log(err)
@@ -622,7 +622,7 @@ app.post('/post_courselist', (req, res) => {
 //-----------------------------------------------------------------------------------
 
 app.get('/get_courselist', (req, res) => {
-  var query_getSocial = csvModel.findOne({ 'StudentEmail': req.body.Email })
+  var query_getSocial = csvModel.findOne({ 'StudentEmail': req.body.studentEmail })
   query_getSocial.exec(function (err, result) {
     if (err) {
       console.log("Error")
@@ -640,16 +640,15 @@ app.get('/get_courselist', (req, res) => {
   }); // end query
 })
 //===================================================================================
-
 //Google Login Stuff
+//It doesn't work yet
 const client = new OAuth2Client(client_id);
 
 async function verify() {
   const ticket = await client.verifyIdToken({
     idToken: token,
     audience: client_id,  // Specify the CLIENT_ID of the app that accesses the backend
-    // Or, if multiple clients access the backend:
-    //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
+
   });
   const payload = ticket.getPayload();
   const userid = payload['sub'];
@@ -670,7 +669,7 @@ app.post('/tokensignin', (req, res) => {
   verify().catch(console.error);
   res.send(req.body.id_token)
 })
-
+//======================================================================================
 
 //assign port
 
