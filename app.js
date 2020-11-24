@@ -621,7 +621,7 @@ app.post('/post_courselist', (req, res) => {
 
 //-----------------------------------------------------------------------------------
 
-app.get('/get_courselist', (req, res) => {
+app.post('/get_courselist', (req, res) => {
   var query_getSocial = csvModel.findOne({ 'StudentEmail': req.body.studentEmail })
   query_getSocial.exec(function (err, result) {
     if (err) {
