@@ -9,12 +9,20 @@ const path = require("path");
 const csvModel = require("./models/csv");
 const socialCircle = require("./models/socialcircle");
 const workplaceModel = require("./models/workplace");
-const selfreportModel = require("./models/selfreport");
 const csv = require("csvtojson");
 const bodyParser = require("body-parser");
 const _ = require("lodash");
 const { OAuth2Client } = require('google-auth-library');
 require("dotenv").config();
+
+
+
+
+
+
+
+
+
 
 /**
  *  Define requirements for express-sections and passport
@@ -360,7 +368,7 @@ app.post('/post_workplace', (req, res) => {
           else {
             console.log("/post_workplace: existing document updated");
             // use the below, with docs, if u wanna debug
-            //console.log("Social circle updated: ", docs); 
+            console.log("post_workplace updated: ", docs); 
           }
         });
       res.status(200).json({
@@ -369,6 +377,75 @@ app.post('/post_workplace', (req, res) => {
     }
   }); // end query
 });
+
+// ==============================================
+// Email: email all people that share workplace
+// ==============================================
+app.post('/post_alert_workplace', (req, res) => {
+  var query_workplace = workplaceModel.findOne({ 'WorkUser': req.body.Email })
+  var query_find_pos = workplaceModel.findOne({ 'WorkUser': req.body.Email })
+  notify_set = new Set()
+  query_workplace.exec(function (err, query_results) {
+    query_find_pos.exec(function (err, pos_doc) {
+      if (err) {
+        console.log(err)
+      }
+      else if (query_results == null) {
+        console.log('/post_alert_workplace: Error, null result')
+        res.status(200).json({
+          message: '/post_alert_workplace: Error, null result'
+        })
+      }
+      else {
+        // query that finds all other users, query result will be an array of documents
+        var query_find_others = workplaceModel.find({ 'WorkUser': { $ne: req.body.Email } })
+        query_find_others.exec(function (err, the_others_arr) {
+          for (z = 0; z < the_others_arr.length; z++) {
+            other_doc = the_others_arr[z]
+            //console.log(other_doc)
+            console.log(pos_doc)
+            if (other_doc.Workplace == pos_doc.Workplace) { // if find a matching workplace
+              console.log("MATCH FOUND")
+              notify_set.add(other_doc.WorkUser) // add to notify set
+            }
+          } // end loop for ALL other user documents
+
+          console.log('notify_set=', notify_set)
+          notify_array = Array.from(notify_set)
+          console.log('notify_array=', notify_array)
+
+          var nodemailer = require('nodemailer');
+          var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: 'teamecovidapp@gmail.com',
+              pass: 'lepjjj2020'  //lingyu,eric,pierce,justin,jeff,john
+            }
+          });
+
+          var mailOptions = {
+            from: 'teamecovidapp@gmail.com',
+            to: notify_array,
+            subject: '(Test Alert) COVID Exposure from: Workplace',
+            html: '<h1>This is a test email for a app that is being developed, if you received this by mistake, ignore everything in this email and delete it.</h1> <h2>An anonymous person has tested positive, and you were share a workplace with this person.</h2><p>Visit <a href="https://oswego.universitytickets.com/">here</a> to schedule an appointment for a Covid-19 test at SUNY Oswego. Covid-19 resources can be found <a href=" https://www.cdc.gov/coronavirus/2019-ncov/index.html">here</a></p>'
+          };
+
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+            }
+          });
+
+        }) // end query_find_others
+        res.status(200).json({
+          message: "/post_alert_workplace: SUCCESS",
+        })
+      } // end else
+    }) // end query_find_pos
+  }) // end query
+})
 
 // ==============================================
 // Email: email all social circle members
@@ -496,142 +573,6 @@ app.post('/post_class_alert', (req, res) => {
   }) // end query_find_pos
 }) // end /post_class_alert
 
-// ==============================================
-// Email: email all people that share workplace
-// ==============================================
-app.post('/post_alert_workplace', (req, res) => {
-  var query_workplace = workplaceModel.findOne({ 'WorkUser': req.body.Email })
-  var query_find_pos = workplaceModel.findOne({ 'WorkUser': req.body.Email })
-  notify_set = new Set()
-  query_workplace.exec(function (err, query_results) {
-    query_find_pos.exec(function (err, pos_doc) {
-      if (err) {
-        console.log(err)
-      }
-      else if (query_results == null) {
-        console.log('/post_alert_workplace: Error, null result')
-        res.status(200).json({
-          message: '/post_alert_workplace: Error, null result'
-        })
-      }
-      else {
-        // query that finds all other users, query result will be an array of documents
-        var query_find_others = workplaceModel.find({ 'WorkUser': { $ne: req.body.Email } })
-        query_find_others.exec(function (err, the_others_arr) {
-          for (z = 0; z < the_others_arr.length; z++) {
-            other_doc = the_others_arr[z]
-            //console.log(other_doc)
-            console.log(pos_doc)
-            if (other_doc.Workplace == pos_doc.Workplace) { // if find a matching workplace
-              console.log("MATCH FOUND")
-              notify_set.add(other_doc.WorkUser) // add to notify set
-            }
-          } // end loop for ALL other user documents
-
-          console.log('notify_set=', notify_set)
-          notify_array = Array.from(notify_set)
-          console.log('notify_array=', notify_array)
-
-          var nodemailer = require('nodemailer');
-          var transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-              user: 'teamecovidapp@gmail.com',
-              pass: 'lepjjj2020'  //lingyu,eric,pierce,justin,jeff,john
-            }
-          });
-
-          var mailOptions = {
-            from: 'teamecovidapp@gmail.com',
-            to: notify_array,
-            subject: '(Test Alert) COVID Exposure from: Workplace',
-            html: '<h1>This is a test email for a app that is being developed, if you received this by mistake, ignore everything in this email and delete it.</h1> <h2>An anonymous person has tested positive, and you were share a workplace with this person.</h2><p>Visit <a href="https://oswego.universitytickets.com/">here</a> to schedule an appointment for a Covid-19 test at SUNY Oswego. Covid-19 resources can be found <a href=" https://www.cdc.gov/coronavirus/2019-ncov/index.html">here</a></p>'
-          };
-
-          transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-              console.log(error);
-            } else {
-              console.log('Email sent: ' + info.response);
-            }
-          });
-
-        }) // end query_find_others
-        res.status(200).json({
-          message: "/post_alert_workplace: SUCCESS",
-        })
-      } // end else
-    }) // end query_find_pos
-  }) // end query
-})
-
-// ==============================================
-// POST: self report
-// ==============================================
-app.post('/post_self_report', (req, res) => {
-  // findOne will return a single document
-  var query_no_doc_yet = selfreportModel.findOne({ 'ReportUser': req.body.ReportUser })
-  query_no_doc_yet.exec(function (err, query_results) {
-    if (query_results == null) { // if no document exists
-      selfreportModel.create( // make a new document
-        {
-          "ReportUser": req.body.ReportUser,
-          "ReportDate": new Date().toISOString()
-        }
-      )
-      res.status(200).json({
-        message: "/post_self_report: new document made"
-      })
-    }
-    else { // document already exists, we can update existing one
-      selfreportModel.updateOne({ ReportUser: req.body.ReportUser },
-        {
-          ReportDate: new Date().toISOString()
-        }, function (err, docs) {
-          if (err) {
-            console.log(err)
-          }
-          else {
-            console.log("/post_self_report: existing doc updated ");
-            // use the below, with docs, if u wanna debug
-            //console.log("Social circle updated: ", docs); 
-          }
-        });
-      res.status(200).json({
-        message: "/post_self_report: existing doc updated"
-      })
-    }
-  }); // end query_no_doc_yet
-})
-
-// ==============================================
-// POST: allowed to report, response sends boolean value
-// ==============================================
-app.post('/get_allowed_to_report', (req, res) => {
-  var query_no_doc_yet = selfreportModel.findOne({ 'ReportUser': req.body.ReportUser })
-  query_no_doc_yet.exec(function (err, self_report_doc) {
-    if (self_report_doc == null) { // if no document exists
-      res.send(true)
-      console.log("get_allowed_to_report: true, no doc exists yet, allowed to report")
-    }
-    else { // document already exists, we can update existing one
-      var ninety_days_added = self_report_doc.ReportDate
-      ninety_days_added.setDate(ninety_days_added.getDate() + 90)
-      var curr_date = new Date()
-      console.log("curr_date=",curr_date)
-      console.log("ninety_days_added=",ninety_days_added)
-      if (ninety_days_added > curr_date) { // check if user reported self ninety days ago
-        res.send(false)
-        console.log("get_allowed_to_report: false, not allowed to report")
-      }
-      else {
-        res.send(true)
-        console.log("get_allowed_to_report: true, doc exists, but at least 90 days passed from last report, allowed to report")
-      }
-    }
-  }); // end query_no_doc_yet
-})
-
 // *****************************************************
 // END OF JEFFS CODE
 // *****************************************************
@@ -640,9 +581,10 @@ app.post('/get_allowed_to_report', (req, res) => {
 //======================================================================================
 // Get Courses
 //======================================================================================
+
 app.post('/post_courselist', (req, res) => {
   // findOne will return a single document
-  var query_no_doc_yet = csvModel.findOne({ 'StudentEmail': req.body.Email })
+  var query_no_doc_yet = csvModel.findOne({ 'StudentEmail': req.body.studentEmail })
   query_no_doc_yet.exec(function (err, query_results) {
     if (query_results == null) { // if no document exists
       csvModel.create( // make a new document
@@ -660,20 +602,21 @@ app.post('/post_courselist', (req, res) => {
         {
           CourseId: req.body.CourseId,
         }, function (err, docs) {
+          console.log("Testin adding classes")
           if (err) {
             console.log(err)
           }
           else {
             console.log("/post_courselist: existing doc updated ");
             // use the below, with docs, if u wanna debug
-            //console.log("Social circle updated: ", docs); 
+            console.log("Classes updated: ", docs); 
           }
         });
       res.status(200).json({
         message: "/post_courselist: existing doc updated"
       })
     }
-  }); // end query_no_doc_yet
+  }); // end query
 });
 
 
@@ -691,7 +634,7 @@ app.post('/get_courselist', (req, res) => {
       res.send("Result was null, no classes were found")
     }
     else {
-      console.log("/get_courselist: successful");
+      console.log("/get_courselist: sucessful");
       console.log(JSON.stringify(result))
       res.send(result);
     }
@@ -730,5 +673,8 @@ app.post('/tokensignin', (req, res) => {
 //======================================================================================
 
 //assign port
+
+
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log("server run at port " + port));
