@@ -604,12 +604,12 @@ app.post('/post_courselist', (req, res) => {
         }, function (err, docs) {
           console.log("Testin adding classes")
           if (err) {
-            console.log(err)
+            console.log("Error "+ err)
           }
           else {
             console.log("/post_courselist: existing doc updated ");
             // use the below, with docs, if u wanna debug
-            console.log("Classes updated: ", docs); 
+            console.log("Classes updated: "+ docs); 
           }
         });
       res.status(200).json({
