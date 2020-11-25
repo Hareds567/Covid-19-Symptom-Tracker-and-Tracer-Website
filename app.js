@@ -609,7 +609,7 @@ app.post('/post_courselist', (req, res) => {
           else {
             console.log("/post_courselist: existing doc updated ");
             // use the below, with docs, if u wanna debug
-            console.log("Classes updated: "+ docs); 
+            console.log("Classes updated: "+ JSON.stringify(docs)); 
           }
         });
       res.status(200).json({
