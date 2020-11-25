@@ -630,7 +630,7 @@ app.post('/get_courselist', (req, res) => {
     }
     else if (result == null) {
       console.log("/get_courselist: error null");
-      res.send("Result was null, no social circle was found")
+      res.send("Result was null, no classes were found")
     }
     else {
       console.log("/get_courselist: sucessful");
