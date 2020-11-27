@@ -15,15 +15,6 @@ const _ = require("lodash");
 const { OAuth2Client } = require('google-auth-library');
 require("dotenv").config();
 
-
-
-
-
-
-
-
-
-
 /**
  *  Define requirements for express-sections and passport
  */
