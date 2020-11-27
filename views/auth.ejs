@@ -11,13 +11,9 @@
     function onSignIn(googleUser) {
       //sends token to backend
       var id_token = googleUser.getAuthResponse().id_token;
-      console.log("id_token " + id_token)
       var xhr = new XMLHttpRequest();
       xhr.open('POST', '/tokensignin');
       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.onload = function () {
-        console.log('Signed in as: ' + xhr.responseText);
-      };
       xhr.send(id_token);
 
       //Check email format
@@ -28,22 +24,17 @@
         gapi.auth2.getAuthInstance().disconnect();
         document.getElementById('discMessage').style.display = 'block';
       } else {
-
         document.getElementById('discMessage').style.display = 'none';
-        
-        console.log("Moving to Upload")
         window.location.replace("/upload626H62W6G4fgw3482F3G60A4517GA2EW6a4d5fad45f4a45a5SF45AD4F7EADS654664546daf564TER86AS54FR8E9asfadfr8ew9hdh4jd9v6b4n987");
-
-        console.log('Name: ' + profile.getName());
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
       }
     }
-
+    // email validation function
     function validateEmail(elementValue) {
       var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
       return emailPattern.test(elementValue);
     } 
   </script>
+
   <meta name="google-signin-client_id"
     content="534704394140-aoflfr8vvca3nh447aigmr5rhb4sr5i3.apps.googleusercontent.com">
   <!-- End -->

@@ -207,6 +207,7 @@ app.get('/get_test', (req, res) => {
 // ==============================================
 app.post('/', uploads.single('csv'), (req, res) => {
   csv().fromFile(req.file.path).then((jsonObj) => {
+    console.log("Json file", jsonObj);
     // does the mass insertion
     jsonObj.forEach(function (student) {
       var temp = csvModel.findOne({ 'StudentEmail': student.StudentEmail })
@@ -215,6 +216,7 @@ app.post('/', uploads.single('csv'), (req, res) => {
           console.log(err)
         }
         else if (query_results == null) {
+          console.log("query_results: ", query_results)
           var Courses = [student.CourseId]
           csvModel.create(
             {
@@ -238,13 +240,14 @@ app.post('/', uploads.single('csv'), (req, res) => {
               else {
                 console.log(student.CourseId);
                 // use the below, with docs, if u wanna debug
-                //console.log("Social circle updated: ", docs);
+                console.log("Social circle updated: ", docs);
               }
             })
         }
       })
     })
   });
+  res.redirect("/upload626H62W6G4fgw3482F3G60A4517GA2EW6a4d5fad45f4a45a5SF45AD4F7EADS654664546daf564TER86AS54FR8E9asfadfr8ew9hdh4jd9v6b4n987");
 });
 
 // ==============================================
