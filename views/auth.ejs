@@ -21,7 +21,7 @@
       xhr.send(id_token);
 
       //Check email format
-      var emailRegex = RegExp("[a-z0-9]+\.[a-z0-9]*@(oswego)\.edu$");
+      var emailRegex = RegExp("^[a-z0-9]+\.[a-z0-9]+@(oswego)\.edu$");
       var profile = googleUser.getBasicProfile();
       var emailResult = emailRegex.test(profile.getEmail());
       console.log(emailResult);
@@ -34,27 +34,12 @@
 
         document.getElementById('discMessage').style.display = 'none';
         console.log("Moving to Upload")
-
-        // var url = '/upload'
-        // var Return_URL = 'true'
-        // var form = $('<form action="' + url + '" method="post">' +
-        //   '<input type="text" name="api_url" value="' + Return_URL + '" />' +
-        //   '</form>');
-        // $('body').append(form);
-        // form.submit();
-
        // window.location.replace("/upload626H62W6G4fgw3482F3G60A4517GA2EW6a4d5fad45f4a45a5SF45AD4F7EADS654664546daf564TER86AS54FR8E9asfadfr8ew9hdh4jd9v6b4n987");
 
         console.log('Name: ' + profile.getName());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
       }
-
-
-
     }
-
-
-
   </script>
   <meta name="google-signin-client_id"
     content="534704394140-aoflfr8vvca3nh447aigmr5rhb4sr5i3.apps.googleusercontent.com">
@@ -90,7 +75,7 @@
       </div>
       <br><br>
       <div id='discMessage' style="display:none">
-        <p>Please Login with and Oswego Google Account</p>
+        <p id='textMessage'>Please Login with and Oswego Google Account</p>
       </div>
     </div>
   </div>
