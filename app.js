@@ -9,6 +9,7 @@ const path = require("path");
 const csvModel = require("./models/csv");
 const socialCircle = require("./models/socialcircle");
 const workplaceModel = require("./models/workplace");
+const selfreportModel = require("./models/selfreport");
 const csv = require("csvtojson");
 const bodyParser = require("body-parser");
 const _ = require("lodash");
