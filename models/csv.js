@@ -20,16 +20,6 @@ var csvSchema = new mongoose.Schema({
         type:String
     },
     CourseId:{
-<<<<<<< HEAD
-        type:String
-    },
-    StudentEmail:{
-        type:String
-    },
-    Ignore_StudentYear:{
-        type:String
-    },
-=======
         type:Array
     },
     StudentEmail:{
@@ -38,7 +28,6 @@ var csvSchema = new mongoose.Schema({
     Ignore_StudentYear:{
         type:String
     },
->>>>>>> jeff
     StudentAddress:{
         type:String
     }
