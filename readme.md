@@ -24,13 +24,11 @@ to install required packages
 Create and save a file named "env" in the main directory. Where it says ReplaceMe, copy and paste the associated information.
 API_KEY is Google login API key.
 API_SECRET is 
-`
-MONGO_STRING=ReplaceMe
 
-API_KEY = ReplaceMe
+`MONGO_STRING=ReplaceMe`
+`API_KEY = ReplaceMe`
+`API_SECRET = ReplaceMe`
 
-API_SECRET = ReplaceMe
-`
 
 Install Packages
 
