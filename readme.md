@@ -25,9 +25,11 @@ Create and save a file named "env" in the main directory. Where it says ReplaceM
 API_KEY is Google login API key.
 API_SECRET is 
 
-`MONGO_STRING=ReplaceMe
+`
+  MONGO_STRING=ReplaceMe
   API_KEY = ReplaceMe
-    API_SECRET = ReplaceMe`
+  API_SECRET = ReplaceMe
+`
 
 
 Install Packages
