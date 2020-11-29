@@ -10,12 +10,14 @@ const csv = require("csvtojson");
 const bodyParser = require("body-parser");
 const _ = require("lodash");
 const { OAuth2Client } = require('google-auth-library');
+
 require("dotenv").config();
 
 /**
  *  Define requirements for express-sections and passport
  */
 const session = require("express-session");
+const MemoryStore = require('memorystore')(session)
 const passport = require("passport");
 const { trimEnd } = require("lodash");
 var userProfile;
@@ -65,15 +67,15 @@ const baseCookieOptions = {
   secret: "SECRET",
 };
 
-app.use(
-  session({
-    ...baseCookieOptions,
-    resave: false,
-    saveUninitialized: true,
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-  })
-);
-
+app.use(session({
+  saveUninitialized: true,
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
+  resave: false,
+  secret: 'keyboard cat'
+}))
 /**
  * Tell Express to use Passport.
  */
