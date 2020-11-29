@@ -26,7 +26,9 @@ API_KEY is Google login API key.
 API_SECRET is 
 `
 MONGO_STRING=ReplaceMe
+
 API_KEY = ReplaceMe
+
 API_SECRET = ReplaceMe
 `
 
