@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -36,3 +37,83 @@
     </div>
   </body>
 </html>
+=======
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <!-- New Google Login Script and Meta -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script>
+    function onSignIn(googleUser) {
+      //sends token to backend
+      var id_token = googleUser.getAuthResponse().id_token;
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/tokensignin');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.send(id_token);
+
+      //Check email format
+      var profile = googleUser.getBasicProfile();
+      //if format is correct move to the upload page
+      if (!validateEmail(profile)) {
+        console.log('Disconnecting');
+        gapi.auth2.getAuthInstance().disconnect();
+        document.getElementById('discMessage').style.display = 'block';
+      } else {
+        document.getElementById('discMessage').style.display = 'none';
+        window.location.replace("/upload626H62W6G4fgw3482F3G60A4517GA2EW6a4d5fad45f4a45a5SF45AD4F7EADS654664546daf564TER86AS54FR8E9asfadfr8ew9hdh4jd9v6b4n987");
+      }
+    }
+    // email validation function
+    function validateEmail(elementValue) {
+      var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return emailPattern.test(elementValue);
+    } 
+  </script>
+
+  <meta name="google-signin-client_id"
+    content="534704394140-aoflfr8vvca3nh447aigmr5rhb4sr5i3.apps.googleusercontent.com">
+  <!-- End -->
+  <title>Authentication Required</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    .g-signin2 {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body class="d-flex flex-direction-column justify-content-center align-items-center">
+  <div class="container">
+    <div class="jumbotron text-center text-primary">
+      <h1><span class="fa fa-lock"></span> Social Authentication</h1>
+      <p>Login or Register with:</p>
+      <div class="btn btn-danger">
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      </div>
+      <br><br>
+      <div id='discMessage' style="display:none">
+        <p id='textMessage'>Please Login with a Professor Oswego Google Account</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+>>>>>>> jeff

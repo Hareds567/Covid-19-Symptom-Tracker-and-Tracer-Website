@@ -1,0 +1,4 @@
+StudentId,FirstName,LastName,MiddleName,MajorCode,MajorName,CourseId,StudentEmail,StudentYear,StudentAddress
+80xxxxxxx,Taylor,Brian,Christopher,"	 480",Software Engineering BS,CSC380800,btaylor5@oswego.edu,2nd sem senior,"7083 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Trut,Nazar,,"	 080",Computer Science BA,CSC380800,ntrut@oswego.edu,2nd sem junior,"7084 State Route 104	Oswego	NY	13126"
+80xxxxxxx,Zi,Lingyu,,"	 080",Computer Science BA,CSC380800,lzi@oswego.edu,Fifth Year Senior,"7086 State Route 104	Oswego	NY	13126"
