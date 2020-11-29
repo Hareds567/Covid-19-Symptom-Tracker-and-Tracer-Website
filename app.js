@@ -1,7 +1,3 @@
-/**
- * Stop using var, always use const, and if a variable should needed to be changed then use let. You should never have to use var.
- */
-
 const express = require("express");
 const mongoose = require("mongoose");
 const multer = require("multer");
@@ -9,6 +5,7 @@ const path = require("path");
 const csvModel = require("./models/csv");
 const socialCircle = require("./models/socialcircle");
 const workplaceModel = require("./models/workplace");
+const selfreportModel = require("./models/selfreport");
 const csv = require("csvtojson");
 const bodyParser = require("body-parser");
 const _ = require("lodash");
@@ -614,7 +611,8 @@ app.post('/get_allowed_to_report', (req, res) => {
   query_no_doc_yet.exec(function (err, self_report_doc) {
     if (self_report_doc == null) { // if no document exists
       res.json({
-        success: "true"})
+        success: "true"
+      })
       console.log("get_allowed_to_report: true, no doc exists yet, allowed to report")
     }
     else { // document already exists, we can update existing one
@@ -625,12 +623,14 @@ app.post('/get_allowed_to_report', (req, res) => {
       console.log("ninety_days_added=",ninety_days_added)
       if (ninety_days_added > curr_date) { // check if user reported self ninety days ago
         res.json({
-          success: "false"})
+          success: "false"
+        })
         console.log("get_allowed_to_report: false, not allowed to report")
       }
       else {
         res.json({
-          success: "true"})
+          success: "true"
+        })
         console.log("get_allowed_to_report: true, doc exists, but at least 90 days passed from last report, allowed to report")
       }
     }
