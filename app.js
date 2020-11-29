@@ -614,9 +614,7 @@ app.post('/get_allowed_to_report', (req, res) => {
   var query_no_doc_yet = selfreportModel.findOne({ 'ReportUser': req.body.ReportUser })
   query_no_doc_yet.exec(function (err, self_report_doc) {
     if (self_report_doc == null) { // if no document exists
-      res.json({
-        success: "true"
-      })
+      res.send(true)
       console.log("get_allowed_to_report: true, no doc exists yet, allowed to report")
     }
     else { // document already exists, we can update existing one
@@ -626,15 +624,11 @@ app.post('/get_allowed_to_report', (req, res) => {
       console.log("curr_date=",curr_date)
       console.log("ninety_days_added=",ninety_days_added)
       if (ninety_days_added > curr_date) { // check if user reported self ninety days ago
-        res.json({
-          success: "false"
-        })
+        res.send(false)
         console.log("get_allowed_to_report: false, not allowed to report")
       }
       else {
-        res.json({
-          success: "true"
-        })
+        res.send(true)
         console.log("get_allowed_to_report: true, doc exists, but at least 90 days passed from last report, allowed to report")
       }
     }
