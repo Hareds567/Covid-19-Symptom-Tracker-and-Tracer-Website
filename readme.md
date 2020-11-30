@@ -1,10 +1,12 @@
 We will be using Heroku in this setup guide to host the middleware. We will also be using MongoDB Atlas to host the database.
+Please complete all the Installation/Creation Guides before proceeding to Setup Guides.
 
 # Installation/Creation Guides
 ### NodeJS
 **Step1:**
 
 Download and install nodejs from https://nodejs.org/en/
+
 **Step2:**
 
 Check if nodejs is installed correctly by entering in your terminal
@@ -20,6 +22,18 @@ Login to your account. Create a cluster. Follow this guide https://docs.atlas.mo
 
 **Step3:**
 Click "CONNECT" on your cluster. Click "Connect your application". Select "Node.js" as DRIVER. Copy and paste the connection string somewhere safe, you'll be using this later. Replace `<username>` and `<password>` and `<dbname>` in the connection string with your username, password, and dbname.
+
+### ClientID and ClientSecret for Google Login functionality
+**Step 1:** Go to: https://console.developers.google.com/
+**Step 2:** Sign in to the google account where you want your project and its associated Client ID/Secret hosted
+**Step 3:** On the left-hand side, make sure you are on the "Credentials" tab
+**Step 4:** Click "Create Project"
+**Step 5:** Type in a "Project name" and fill out the following blank tabs and click "Create." (Please wait afterwards, it may take up to ten minutes or longer)
+**Step 6:** Click on “OAuth consent screen” and select your “User Type” based on your app’s specifications
+**Step 7:** Fill out the following information for OAuth consent screen, Scopes, Optional info, and Summary. 
+**Step 8:** Save your information then go to the “OAuth consent screen” and select your project
+**Step 9:** Your Client ID and Client Secret should be in the top right of the screen. Copy the Client ID and Client Secret
+**Step 10:** Paste into the .env file with the “Middleware” code (see Step 4 of Nodejs Setup for more details)
 
 # Setup Guides
 ### Nodejs Setup
