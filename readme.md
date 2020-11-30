@@ -1,7 +1,7 @@
 We will be using Heroku in this setup guide to host the middleware. We will also be using MongoDB Atlas to host the database.
 
 # Installation/Creation Guides
-## NodeJS
+### NodeJS
 **Step1:**
 
 Download and install nodejs from https://nodejs.org/en/
@@ -11,7 +11,7 @@ Check if nodejs is installed correctly by entering in your terminal
 `$ node -v`
 this should give you your version number if nodejs is correctly installed.
 
-## MongoDB Atlas
+### MongoDB Atlas
 **Step1:**
 Create a MongoDB Atlas account at https://www.mongodb.com/cloud/atlas
 
@@ -22,7 +22,7 @@ Login to your account. Create a cluster. Follow this guide https://docs.atlas.mo
 Click "CONNECT" on your cluster. Click "Connect your application". Select "Node.js" as DRIVER. Copy and paste the connection string somewhere safe, you'll be using this later. Replace `<username>` and `<password>` and `<dbname>` in the connection string with your username, password, and dbname.
 
 # Setup Guides
-## Nodejs Setup
+### Nodejs Setup
 **Step 1:** 
 
 Clone or download the code and place somewhere suitable.
@@ -51,7 +51,7 @@ API_SECRET = ReplaceMe
 
 Where there is "ReplaceMe", enter the associated information. Save the file with filename of "env" in the main directory (the directory with app.js). Now, rename the env file to ".env" and it will dissapear as a hidden file, this is supposed to happen.
 
-## Heroku Setup
+### Heroku Setup
 **Step 5:**
 
 Follow the tutorial at https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up to deploy the middleware code to Heroku.
@@ -67,7 +67,7 @@ API_SECRET = YourApiSecret
 ```
 
 # FAQ
-## How to run on local host?
+### How to run on local host?
 
 Fully complete the pre-requisites and setup guide (Steps 1-4) before attempting this.
 
@@ -87,7 +87,7 @@ http://localhost:3000
 You can now send test HTTP requests to http://localhost:3000 using an app like POSTMAN or something similar.
 
 
-## How should CSVs be formatted?
+### How should CSVs be formatted?
 Our website expects the first line of the CSV files uploaded to be:
 ```
 StudentId,FirstName,LastName,MiddleName,MajorCode,MajorName,CourseId,StudentEmail,StudentYear,StudentAddress
