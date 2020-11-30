@@ -1,7 +1,7 @@
 We will be using Heroku in this setup guide to host the middleware. We will also be using MongoDB Atlas to host the database.
 
-# Pre-requisites
-## NodeJS Setup
+# Installation/Creation Guides
+## NodeJS
 **Step1:**
 
 Download and install nodejs from https://nodejs.org/en/
@@ -11,7 +11,7 @@ Check if nodejs is installed correctly by entering in your terminal
 `$ node -v`
 this should give you your version number if nodejs is correctly installed.
 
-## MongoDB Atlas Setup
+## MongoDB Atlas
 **Step1:**
 Create a MongoDB Atlas account at https://www.mongodb.com/cloud/atlas
 
@@ -21,9 +21,7 @@ Login to your account. Create a cluster. Follow this guide https://docs.atlas.mo
 **Step3:**
 Click "CONNECT" on your cluster. Click "Connect your application". Select "Node.js" as DRIVER. Copy and paste the connection string somewhere safe, you'll be using this later. Replace `<username>` and `<password>` and `<dbname>` in the connection string with your username, password, and dbname.
 
-# Setup Guide
-Make sure you have done the pre-requisites before following this guide. 
-
+# Setup Guides
 ## Nodejs Setup
 **Step 1:** 
 
@@ -68,7 +66,8 @@ API_KEY = YourApiKey
 API_SECRET = YourApiSecret
 ```
 
-# Running On Local Host
+# FAQ
+## How to run on local host?
 
 Fully complete the pre-requisites and setup guide (Steps 1-4) before attempting this.
 
@@ -88,7 +87,7 @@ http://localhost:3000
 You can now send test HTTP requests to http://localhost:3000 using an app like POSTMAN or something similar.
 
 
-# Website CSV Data Format
+## How should CSVs be formatted?
 Our website expects the first line of the CSV files uploaded to be:
 ```
 StudentId,FirstName,LastName,MiddleName,MajorCode,MajorName,CourseId,StudentEmail,StudentYear,StudentAddress
