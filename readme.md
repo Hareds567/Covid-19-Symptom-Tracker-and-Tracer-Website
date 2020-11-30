@@ -3,24 +3,24 @@ Please complete all the Installation/Creation Guides before proceeding to Setup 
 
 # Installation/Creation Guides
 ### NodeJS
-**Step1:**
+**Step 1:**
 
 Download and install nodejs from https://nodejs.org/en/
 
-**Step2:**
+**Step 2:**
 
 Check if nodejs is installed correctly by entering in your terminal
 `$ node -v`
 this should give you your version number if nodejs is correctly installed.
 
 ### MongoDB Atlas
-**Step1:**
+**Step 1:**
 Create a MongoDB Atlas account at https://www.mongodb.com/cloud/atlas
 
-**Step2:**
+**Step 2:**
 Login to your account. Create a cluster. Follow this guide https://docs.atlas.mongodb.com/tutorial/create-new-cluster/
 
-**Step3:**
+**Step 3:**
 Click "CONNECT" on your cluster. Click "Connect your application". Select "Node.js" as DRIVER. Copy and paste the connection string somewhere safe, you'll be using this later. Replace `<username>` and `<password>` and `<dbname>` in the connection string with your username, password, and dbname.
 
 ### ClientID and ClientSecret for Google Login functionality
