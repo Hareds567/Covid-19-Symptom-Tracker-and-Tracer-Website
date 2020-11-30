@@ -83,7 +83,7 @@ API_SECRET = YourApiSecret
 # FAQ
 ### How to run on local host?
 
-Fully complete the pre-requisites and setup guide (Steps 1-4) before attempting this.
+Fully complete the pre-requisites and setup guide (Steps 1-4) before attempting this. Running on the local host is useful for testing the middleware by sending test post requests. Running on the local host is not necessary for the app to function, you only need to follow the Install/Creation Guides and Setup Guides to get the app running.
 
 **Step 1:**
 Go to main project directory, start the app by typing
