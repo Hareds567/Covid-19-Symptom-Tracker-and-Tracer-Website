@@ -1,8 +1,7 @@
-# Middleware Setup
 We will be using Heroku in this setup guide to host the middleware. We will also be using MongoDB Atlas to host the database.
 
-## Pre-requisites
-### NodeJS Setup
+# Pre-requisites
+## NodeJS Setup
 **Step1:**
 
 Download and install nodejs from https://nodejs.org/en/
@@ -12,7 +11,7 @@ Check if nodejs is installed correctly by entering in your terminal
 `$ node -v`
 this should give you your version number if nodejs is correctly installed.
 
-### MongoDB Atlas Setup
+## MongoDB Atlas Setup
 **Step1:**
 Create a MongoDB Atlas account at https://www.mongodb.com/cloud/atlas
 
@@ -22,10 +21,10 @@ Login to your account. Create a cluster. Follow this guide https://docs.atlas.mo
 **Step3:**
 Click "CONNECT" on your cluster. Click "Connect your application". Select "Node.js" as DRIVER. Copy and paste the connection string somewhere safe, you'll be using this later. Replace `<username>` and `<password>` and `<dbname>` in the connection string with your username, password, and dbname.
 
-## Setup Guide
+# Setup Guide
 Make sure you have done the pre-requisites before following this guide. 
 
-### Nodejs Setup
+## Nodejs Setup
 **Step 1:** 
 
 Clone or download the code and place somewhere suitable.
@@ -54,7 +53,7 @@ API_SECRET = ReplaceMe
 
 Where there is "ReplaceMe", enter the associated information. Save the file with filename of "env" in the main directory (the directory with app.js). Now, rename the env file to ".env" and it will dissapear as a hidden file, this is supposed to happen.
 
-### Heroku Setup
+## Heroku Setup
 **Step 5:**
 
 Follow the tutorial at https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up to deploy the middleware code to Heroku.
@@ -69,7 +68,7 @@ API_KEY = YourApiKey
 API_SECRET = YourApiSecret
 ```
 
-## Running On Local Host
+# Running On Local Host
 
 Fully complete the pre-requisites and setup guide (Steps 1-4) before attempting this.
 
