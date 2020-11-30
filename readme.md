@@ -20,7 +20,7 @@ Create a MongoDB Atlas account at https://www.mongodb.com/cloud/atlas
 Login to your account. Create a cluster. Follow this guide https://docs.atlas.mongodb.com/tutorial/create-new-cluster/
 
 **Step3:**
-Click "CONNECT" on your cluster. Click "Connect your application". Select "Node.js" as DRIVER. Copy and paste the connection string somewhere safe, you'll be using this later. Replace <username> and <password> and <dbname> in the connection string with username, password, and dbname.
+Click "CONNECT" on your cluster. Click "Connect your application". Select "Node.js" as DRIVER. Copy and paste the connection string somewhere safe, you'll be using this later. Replace `<username>` and `<password>` and `<dbname>` in the connection string with your username, password, and dbname.
 
 ## Setup Guide
 Make sure you have done the pre-requisites before following this guide. 
@@ -86,3 +86,12 @@ The app will now be running by default at port 3000, URL will be
 ```
 http://localhost:3000
 ```
+You can now send test HTTP requests to http://localhost:3000 using an app like POSTMAN or something similar.
+
+
+# Website CSV Data Format
+Our website expects the first line of the CSV files uploaded to be:
+```
+StudentId,FirstName,LastName,MiddleName,MajorCode,MajorName,CourseId,StudentEmail,StudentYear,StudentAddress
+```
+If the first line of CSVs is different, you can easily change the schemas in `/models` folder to match whatever the first line of the CSVs actually is.
