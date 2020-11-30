@@ -1,6 +1,6 @@
 We will be using Heroku in this setup guide to host the middleware. We will also be using MongoDB Atlas to host the database. Finally, we will be using Google login for checking user credentials.
 
-**___Please complete all the Installation/Creation Guides before proceeding to Setup Guides.___**
+***Please complete all the Installation/Creation Guides before proceeding to Setup Guides.***
 
 # Installation/Creation Guides
 ### NodeJS
